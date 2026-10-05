@@ -1,0 +1,989 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>CCW Y Workshop Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky navy bar, navy hero carrying the countdown, then stacked bands (paper / white) in a 1080px column; the task list is grouped by RACI phase. */
+:root{
+  --navy:#041e42; --gold:#d69d23; --azure:#1f43ea; --coral:#f94868;
+  --bg:#ffffff; --paper:#f2f3f6; --paper-2:#f9f9fa; --surface:#ffffff;
+  --ink:#1a1c1f; --ink-2:#3c4654; --muted:#5b6675; --line:#e4e6ea; --line-2:#d3d8df;
+  --link:#1f43ea; --gold-ink:#8f650c; --gold-soft:rgba(214,157,35,.16);
+  --azure-soft:rgba(31,67,234,.09); --ok:#1b7a48; --ok-soft:rgba(27,122,72,.12);
+  --warn:#c0213f; --warn-soft:rgba(249,72,104,.13); --check:#041e42;
+  --sel:#041e42; --sel-ink:#ffffff;
+  --hero-bg:#041e42; --hero-ink:#ffffff; --hero-muted:rgba(255,255,255,.74); --hero-line:rgba(255,255,255,.16); --hero-card:rgba(255,255,255,.06);
+  --font:'Helvetica Neue',Helvetica,Arial,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --word:'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --maxw:1080px; --pad:clamp(16px,5vw,64px);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#07101e; --paper:#0b1628; --paper-2:#0a1424; --surface:#0f1b30;
+  --ink:#e9edf3; --ink-2:#c4ccd8; --muted:#94a1b4; --line:#1e2c44; --line-2:#2a3a56;
+  --link:#93a6ff; --gold-ink:#e8b650; --gold-soft:rgba(214,157,35,.18);
+  --azure-soft:rgba(147,166,255,.13); --ok:#62d29b; --ok-soft:rgba(98,210,155,.14);
+  --warn:#ff8ea3; --warn-soft:rgba(255,142,163,.14); --check:#d69d23;
+  --sel:#d69d23; --sel-ink:#1a1405; --hero-bg:#041a3a; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#07101e; --paper:#0b1628; --paper-2:#0a1424; --surface:#0f1b30;
+  --ink:#e9edf3; --ink-2:#c4ccd8; --muted:#94a1b4; --line:#1e2c44; --line-2:#2a3a56;
+  --link:#93a6ff; --gold-ink:#e8b650; --gold-soft:rgba(214,157,35,.18);
+  --azure-soft:rgba(147,166,255,.13); --ok:#62d29b; --ok-soft:rgba(98,210,155,.14);
+  --warn:#ff8ea3; --warn-soft:rgba(255,142,163,.14); --check:#d69d23;
+  --sel:#d69d23; --sel-ink:#1a1405; --hero-bg:#041a3a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;line-height:1.1;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* lockup + nav */
+.lockup{display:flex;align-items:center;gap:.55rem;color:#fff;flex:none}
+.lockup img{width:34px;height:30px;object-fit:contain;flex:none}
+.lockup .word{font-family:var(--word);font-weight:500;font-size:1.4rem;letter-spacing:.02em;line-height:1}
+.lockup .region{border-left:1.5px solid currentColor;padding-left:.55rem;margin-left:.1rem;font-size:.6rem;font-weight:600;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;opacity:.92}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(4,30,66,.97);backdrop-filter:blur(8px);color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding-block:.65rem}
+nav.top .links{display:flex;gap:1.15rem;overflow-x:auto;scrollbar-width:none;min-width:0}
+nav.top .links::-webkit-scrollbar{display:none}
+nav.top .links a{color:rgba(255,255,255,.86);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid var(--gold);padding-bottom:2px}
+nav.top .links a:hover{color:#fff;text-decoration:none}
+@media (max-width:560px){nav.top .region{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--hero-bg);color:var(--hero-ink)}
+.tri{position:absolute;right:-6%;top:-8%;width:min(620px,70vw);opacity:.08;color:#fff;pointer-events:none}
+.hero .wrap{position:relative;padding-block:clamp(36px,6vw,72px) clamp(32px,5vw,56px)}
+.kicker{font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:1rem}
+.hero h1{font-size:clamp(2.3rem,7vw,4.6rem);letter-spacing:-.03em;line-height:.98;max-width:14ch}
+.hero h1 .y{color:var(--gold)}
+.hero .sub{margin-top:1.1rem;max-width:58ch;font-size:clamp(1rem,2vw,1.12rem);color:var(--hero-muted)}
+.team{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.3rem}
+.pill{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--hero-line);border-radius:999px;padding:.28rem .75rem;font-size:.74rem;color:rgba(255,255,255,.88)}
+.pill b{font-weight:700;color:#fff}
+.cds{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;margin-top:2rem;background:var(--hero-line);border:1px solid var(--hero-line);border-radius:12px;overflow:hidden}
+.cd{background:var(--hero-bg);padding:1.2rem 1.3rem 1.25rem;min-width:0;display:flex;flex-direction:column;gap:.15rem}
+.cd .lbl{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--hero-muted);font-weight:700}
+.cd .n{font-family:var(--serif);font-size:clamp(3rem,7vw,4.2rem);line-height:1;color:var(--gold);font-variant-numeric:tabular-nums;margin-top:.35rem}
+.cd .n small{font-family:var(--font);font-size:.95rem;color:var(--hero-ink);font-weight:600;margin-left:.35rem;letter-spacing:0}
+.cd .when{font-size:.88rem;color:#fff;font-weight:600}
+.cd .meta{font-size:.8rem;color:var(--hero-muted)}
+.cd .big{font-size:1.35rem;font-weight:700;letter-spacing:-.01em;margin-top:.45rem;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:.45rem;font:inherit;font-weight:700;font-size:.85rem;border-radius:8px;padding:.55rem .95rem;border:0;cursor:pointer;text-decoration:none}
+.btn:hover{text-decoration:none}
+.btn.gold{background:var(--gold);color:#1a1405}
+.btn.gold:hover{background:#e3ab35}
+.btn.line{background:transparent;border:1px solid var(--line-2);color:var(--ink)}
+.btn.line:hover{border-color:var(--ink-2)}
+.cd .btn{align-self:flex-start;margin-top:.7rem}
+
+/* bands + headers */
+.band{padding-block:clamp(44px,6vw,80px);border-top:1px solid var(--line)}
+.band.paper{background:var(--paper)}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--link);margin-bottom:.8rem}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--gold)}
+.sec-h{font-size:clamp(1.6rem,3.4vw,2.3rem)}
+.lede{margin-top:.6rem;color:var(--ink-2);max-width:62ch;font-size:1.02rem}
+.head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem 2rem;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:.35rem;font-size:.66rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.18rem .5rem;border-radius:4px;white-space:nowrap;background:var(--paper);color:var(--muted)}
+.chip.now{background:var(--azure-soft);color:var(--link)}
+.chip.hot{background:var(--gold-soft);color:var(--gold-ink)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+a.chip:hover{text-decoration:underline}
+.nbody li .chip{margin-left:.25rem;vertical-align:1px}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+
+/* timeline */
+.track{position:relative;height:156px;margin-top:2.4rem}
+.rail{position:absolute;left:0;right:0;top:74px;height:4px;border-radius:2px;background:var(--line-2)}
+.elapsed{position:absolute;left:0;top:74px;height:4px;border-radius:2px;background:var(--gold)}
+.reh{position:absolute;top:68px;height:16px;border-radius:8px;background:var(--azure-soft);border:1px dashed var(--link)}
+.ms{position:absolute;top:0;height:100%;width:0}
+.ms .dot{position:absolute;top:68px;left:-8px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--navy)}
+:root[data-theme="dark"] .ms .dot{border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ms .dot{border-color:var(--gold)}}
+.ms.done .dot{background:var(--gold);border-color:var(--gold)}
+.ms.glc .dot{width:22px;height:22px;top:65px;left:-11px;background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px var(--gold-soft)}
+.ms .lab{position:absolute;width:max-content;max-width:170px;transform:translateX(-50%);font-size:.78rem;line-height:1.3;color:var(--ink-2)}
+.ms .lab b{display:block;color:var(--ink);font-size:.84rem}
+.ms .lab.up{bottom:96px}
+.ms .lab.down{top:96px}
+.ms .lab.l{transform:none;left:-8px}
+.ms .lab.r{transform:translateX(-100%);left:8px;text-align:right}
+.today{position:absolute;top:58px;height:26px;width:2px;background:var(--coral)}
+.today span{position:absolute;top:26px;left:-2px;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);white-space:nowrap}
+.months{position:relative;height:18px;margin-top:.2rem;border-top:1px solid var(--line)}
+.months span{position:absolute;top:4px;transform:translateX(-50%);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:760px){.track,.months{display:none}}
+.mlist{list-style:none;margin:2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mlist li{background:var(--surface);padding:1.1rem 1.2rem 1.2rem;display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.mlist .d{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mlist h3{font-size:1.08rem}
+.mlist p{font-size:.88rem;color:var(--ink-2)}
+.mlist .chip{align-self:flex-start;margin-top:.25rem}
+
+/* calls */
+.next{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:0;margin-top:2rem;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.next .when{background:var(--navy);color:#fff;padding:1.4rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.3rem}
+.next .when .tag{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.next .when .day{font-family:var(--serif);font-size:2.6rem;line-height:1}
+.next .when .t{font-weight:700;font-size:1rem}
+.next .when .loc{font-size:.82rem;color:rgba(255,255,255,.72)}
+.next .when .id{font-size:.78rem;color:rgba(255,255,255,.72);margin-top:.5rem}
+.next .when .btn{margin-top:.8rem;align-self:flex-start}
+.next .agenda{padding:1.4rem 1.5rem 1.5rem;min-width:0}
+.next .agenda h3{font-size:1.25rem;margin-bottom:.8rem}
+.next ol{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.next ol li{padding-left:.2rem}
+.next ol li::marker{color:var(--gold-ink);font-weight:700}
+.owners{margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--line)}
+.owners h4{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tags span{font-size:.8rem;border:1px solid var(--line-2);border-radius:999px;padding:.18rem .65rem;color:var(--ink-2)}
+@media (max-width:720px){.next{grid-template-columns:1fr}}
+.calls{list-style:none;margin:1.6rem 0 0;padding:0;border-top:1px solid var(--line)}
+.calls li{display:grid;grid-template-columns:120px 180px minmax(0,1fr);gap:.4rem 1.2rem;padding:.85rem 0;border-bottom:1px solid var(--line);align-items:baseline}
+.calls .cdate{font-weight:700}
+.calls .ctime{font-size:.86rem;color:var(--ink-2)}
+.calls .ctime em{display:block;font-style:normal;color:var(--muted);font-size:.78rem}
+.calls .cnote{font-size:.86rem;color:var(--ink-2);display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.calls .cnote .row{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.calls .starts{font-size:.8rem;color:var(--muted)}
+.calls .starts b{color:var(--ink-2);font-weight:600}
+@media (max-width:640px){.calls li{grid-template-columns:1fr;gap:.2rem}}
+.more{margin-top:1rem}
+
+/* resources */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:2.2rem 2.6rem;margin-top:2rem}
+.rgroup h3{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.rlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rlist li{border-bottom:1px solid var(--line)}
+.rlist a,.rlist .soon{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:.9rem;align-items:start;padding:.75rem 0;color:var(--ink)}
+.rlist a:hover{text-decoration:none}
+.rlist a:hover .rt{color:var(--link)}
+.ft{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;border-radius:4px;padding:.2rem 0;margin-top:.15rem;background:var(--paper);color:var(--muted);border:1px solid var(--line)}
+.ft.pdf{color:var(--warn)} .ft.xls{color:var(--ok)} .ft.doc{color:var(--link)} .ft.dir{color:var(--gold-ink)}
+.rt{font-weight:600;line-height:1.3;display:block}
+.rd{font-size:.82rem;color:var(--muted);display:block;margin-top:.15rem;line-height:1.4}
+.arw{color:var(--muted);font-size:.9rem;margin-top:.1rem}
+.rlist .soon .chip{margin-top:.15rem}
+.band.paper .ft{background:var(--surface)}
+
+/* notes */
+details.note{margin-top:1.6rem;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+details.note summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1.1rem 1.3rem;flex-wrap:wrap}
+details.note summary::-webkit-details-marker{display:none}
+details.note summary h3{font-size:1.15rem}
+details.note summary .sm{font-size:.82rem;color:var(--muted)}
+details.note summary .tog{font-size:.78rem;font-weight:700;color:var(--link)}
+details.note[open] summary .tog::after{content:"Hide"} details.note:not([open]) summary .tog::after{content:"Show notes"}
+.nbody{padding:1.2rem 1.3rem .2rem;columns:2 300px;column-gap:2.4rem;border-top:1px solid var(--line)}
+.nbody>div{break-inside:avoid;margin-bottom:1.4rem}
+.nbody h4{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.nbody ul,.nbody ol{margin:0;padding-left:1.15rem;display:grid;gap:.3rem;font-size:.9rem;color:var(--ink-2)}
+.nbody b{color:var(--ink)}
+.nbody .full{column-span:all}
+.recap{font-size:.95rem;color:var(--ink-2);max-width:80ch;line-height:1.65}
+.quote{font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.35;color:var(--ink);max-width:60ch}
+
+/* tasks */
+.tbar{margin-top:2rem;display:grid;gap:1rem}
+.prog{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.prog .num{font-family:var(--serif);font-size:2.4rem;line-height:1;color:var(--ink)}
+.prog .num small{font-family:var(--font);font-size:.9rem;color:var(--muted);margin-left:.3rem}
+.meter{flex:1 1 220px;height:8px;background:var(--line);border-radius:4px;overflow:hidden;min-width:160px}
+.meter i{display:block;height:100%;width:0;background:var(--gold);transition:width .4s ease}
+.counts{display:flex;gap:.5rem;flex-wrap:wrap}
+.filters{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden;flex-wrap:wrap}
+.seg button{font:inherit;font-size:.8rem;font-weight:600;background:transparent;color:var(--ink-2);border:0;border-right:1px solid var(--line-2);padding:.4rem .7rem;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--sel);color:var(--sel-ink)}
+.flabel{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-right:.5rem}
+.sync{font-size:.84rem;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.sync .dot{width:8px;height:8px;border-radius:50%;background:var(--line-2);flex:none}
+.sync.live .dot{background:var(--ok);box-shadow:0 0 0 4px var(--ok-soft)}
+.sync.ro .dot{background:var(--gold)}
+.legend{font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.3rem 1.2rem}
+.legend b{color:var(--ink-2)}
+.phase{margin-top:2rem}
+.phase-h{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--navy)}
+:root[data-theme="dark"] .phase-h{border-bottom-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .phase-h{border-bottom-color:var(--gold)}}
+.phase-h h3{font-size:1.1rem}
+.phase-h h3 span{color:var(--gold-ink);margin-right:.4rem}
+.phase-h .pc{font-size:.82rem;color:var(--muted);white-space:nowrap}
+.tasks{list-style:none;margin:0;padding:0}
+.task{display:grid;grid-template-columns:24px minmax(0,1fr);gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--line)}
+.task input{width:19px;height:19px;margin:.15rem 0 0;accent-color:var(--check);cursor:pointer}
+.task input:disabled{cursor:not-allowed}
+.task label{cursor:pointer;font-weight:500;line-height:1.4;display:block}
+.task.done label{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line-2)}
+.task .meta{display:flex;flex-wrap:wrap;gap:.35rem .8rem;align-items:center;margin-top:.4rem;font-size:.8rem;color:var(--muted)}
+.task .meta b{color:var(--ink-2);font-weight:600}
+.task .ci{font-size:.76rem;color:var(--muted);margin-top:.25rem}
+.task .by{font-size:.76rem;color:var(--ok);margin-top:.25rem;font-weight:600}
+.empty{padding:1.2rem 0;color:var(--muted);font-size:.9rem}
+.msg{font-size:.84rem;color:var(--warn);min-height:1.2em}
+
+footer{background:var(--navy);color:#fff}
+footer .wrap{padding-block:clamp(36px,5vw,56px);display:flex;justify-content:space-between;gap:1.6rem 2rem;flex-wrap:wrap;align-items:flex-end}
+footer .small{font-size:.78rem;color:rgba(255,255,255,.66);max-width:56ch;line-height:1.6}
+footer .small b{color:rgba(255,255,255,.92)}
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="tri-field" viewBox="0 0 600 600">
+    <g fill="currentColor">
+      <polygon points="300,40 180,250 420,250"/><polygon points="180,250 60,460 300,460"/>
+      <polygon points="420,250 300,460 540,460"/><polygon points="300,250 240,355 360,355" opacity=".6"/>
+    </g>
+  </symbol>
+</svg>
+
+<nav class="top" aria-label="Hub sections">
+  <div class="wrap">
+    <span class="lockup"><img src="data:image/png;base64,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" alt="YPO mark"><span class="word">YPO</span><span class="region">Chapter Chair Y<br>Workshop</span></span>
+    <div class="links">
+      <a href="#road">Road to GLC</a>
+      <a href="#calls">Calls</a>
+      <a href="#resources">Resources</a>
+      <a href="#notes">Notes</a>
+      <a href="#tasks">Tasks</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="tri" viewBox="0 0 600 600" aria-hidden="true"><use href="#tri-field"/></svg>
+  <div class="wrap">
+    <div class="kicker">GLC 2027 · Bangkok &amp; San Diego</div>
+    <h1>Chapter Chair <span class="y">Y</span> Workshop</h1>
+    <p class="sub">One place for the delivery team: our weekly calls and agendas, the shared folders and files, meeting notes, and the management task list, counting down to GLC.</p>
+    <div class="team">
+      <span class="pill"><b>Champions</b> Delcie Bean · Elizabeth Blount McCormick</span>
+      <span class="pill"><b>Management Partners</b> Alexandra Fernández Díaz · Paige Morgan</span>
+      <span class="pill"><b>Officer Education</b> Nerissa Naicker</span>
+    </div>
+    <div class="cds">
+      <div class="cd">
+        <span class="lbl">To GLC Bangkok</span>
+        <span class="n tnum" id="cd-bkk">161<small>days</small></span>
+        <span class="when">Mon 15 – Wed 17 Mar 2027</span>
+        <span class="meta">Workshop blocks Mon 15 &amp; Tue 16 Mar</span>
+      </div>
+      <div class="cd">
+        <span class="lbl">To GLC San Diego</span>
+        <span class="n tnum" id="cd-sd">210<small>days</small></span>
+        <span class="when">Mon 3 – Wed 5 May 2027</span>
+        <span class="meta">Workshop blocks Mon 3 &amp; Tue 4 May</span>
+      </div>
+      <div class="cd">
+        <span class="lbl">Next team call</span>
+        <span class="big" id="cd-call">Mon 12 Oct · 15:00 UK</span>
+        <span class="meta" id="cd-call-rel">Running through content</span>
+        <a class="btn gold" href="https://ypo.zoom.us/j/95910321865?jst=1" target="_blank" rel="noopener">Join on Zoom ↗</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="band" id="road">
+  <div class="wrap">
+    <div class="eyebrow">Timeline</div>
+    <h2 class="sec-h">Road to GLC</h2>
+    <p class="lede">Content is final before the Christmas break so January to GLC is for rehearsal. The gold line shows how far along we are.</p>
+    <div class="track" id="track" aria-hidden="true"></div>
+    <div class="months" id="months" aria-hidden="true"></div>
+    <ol class="mlist" id="mlist"></ol>
+  </div>
+</section>
+
+<section class="band paper" id="calls">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <div class="eyebrow">Weekly team call</div>
+        <h2 class="sec-h">Upcoming calls &amp; agendas</h2>
+        <p class="lede">Every Monday, 15:00–16:00 UK time, in the same Zoom room. Times in your own time zone are shown under each date.</p>
+      </div>
+      <a class="btn line" href="https://ypo.zoom.us/j/95910321865?jst=1" target="_blank" rel="noopener">Zoom room · 959 1032 1865 ↗</a>
+    </div>
+    <div id="next-call"></div>
+    <ul class="calls" id="calls-list"></ul>
+    <button type="button" class="btn line more" id="calls-more"></button>
+  </div>
+</section>
+
+<section class="band" id="resources">
+  <div class="wrap">
+    <div class="eyebrow">Links</div>
+    <h2 class="sec-h">Resources &amp; presentations</h2>
+    <p class="lede">Shared through the Learning Department SharePoint. If a link asks for access, message Nerissa or Paige.</p>
+    <div class="rgrid">
+      <div class="rgroup">
+        <h3>Shared spaces</h3>
+        <ul class="rlist">
+          <li><a href="https://youngpresidentsorg.sharepoint.com/:f:/r/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y?d=wa870786974da49d7a883d745466471e1&amp;csf=1&amp;web=1&amp;e=ICQ3r4" target="_blank" rel="noopener"><span class="ft dir">Folder</span><span><span class="rt">CC Y shared folder</span><span class="rd">Our team folder, including the CCW Y data Pietro presented at WDTM</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FLearningDepartment%2FShared%20Documents%2FOfficer%20Education%2FOfficer%20Education%20Materials%2FFY26%2D27%20%2D%20CURRENT%2FWorkshop%20Materials&amp;viewid=3ddbe2fc%2Db0a9%2D40fb%2D82bd%2Da45dda511cdf" target="_blank" rel="noopener"><span class="ft dir">Folder</span><span><span class="rt">Workshop Materials folder</span><span class="rd">WDTM slides and previous GLC evaluations for every workshop</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FLearningDepartment%2FShared%20Documents%2FOfficer%20Education%2FOfficer%20Education%20Materials%2FFY26%2D27%20%2D%20CURRENT%2FWorkshop%20Materials%2FCC%20Y%2FRoadmaps" target="_blank" rel="noopener"><span class="ft dir">Folder</span><span><span class="rt">Chapter Chair roadmaps</span><span class="rd">CC roadmap 1 (info page), 2 (landscape) and 3 (portrait), saved until a central home is ready</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://ypo.zoom.us/j/95910321865?jst=1" target="_blank" rel="noopener"><span class="ft">Zoom</span><span><span class="rt">Weekly call room</span><span class="rd">Meeting ID 959 1032 1865 · organised by Alexandra</span></span><span class="arw">↗</span></a></li>
+        </ul>
+      </div>
+      <div class="rgroup">
+        <h3>Planning tools</h3>
+        <ul class="rlist">
+          <li><a href="https://youngpresidentsorg.sharepoint.com/:x:/r/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/WDTM%20RACI%202027.xlsx?d=w2e1b11663cf24f96a268c404bb2e77f3&amp;csf=1&amp;web=1&amp;e=skhih2" target="_blank" rel="noopener"><span class="ft xls">XLSX</span><span><span class="rt">WDTM RACI 2027</span><span class="rd">Nerissa’s management checklist, Aug 2026 to Jul 2027. The tick list below tracks it.</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/:x:/r/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/WDTM%20Event%20WAAG%2030%20September%202026.xlsx?d=w9058db65d10b4cfd8f05982607ed5dbd&amp;csf=1&amp;web=1&amp;e=NGcl7Z" target="_blank" rel="noopener"><span class="ft xls">XLSX</span><span><span class="rt">GLC week at a glance (30 Sep)</span><span class="rd">Corrected Bangkok timings. Plan for 8 hours of workshop time.</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/F26-27%20CCW%20Y%20Outline%20in%20person%20workshop.docx?web=1" target="_blank" rel="noopener"><span class="ft doc">DOCX</span><span><span class="rt">FY26-27 CCW Y outline, in-person workshop</span><span class="rd">The content walkthrough Delcie and Elizabeth are reviewing</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/CCY%20Excel.xlsx?web=1" target="_blank" rel="noopener"><span class="ft xls">XLSX</span><span><span class="rt">CCY workshop planning sheet</span><span class="rd">The WDTM Excel template for this workshop</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/WAAGBangkok2027glc%20WDTM%20DRAFT%202.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">Bangkok week at a glance, draft 2</span><span class="rd">14–16 Mar 2027 schedule</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/WAAGSanDiego2027glcEDGE%20WDTM%20DRAFT%203.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">San Diego week at a glance, draft 3</span><span class="rd">2–4 May 2027 schedule, with EDGE</span></span><span class="arw">↗</span></a></li>
+        </ul>
+      </div>
+      <div class="rgroup">
+        <h3>Content &amp; past learning</h3>
+        <ul class="rlist">
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/Chapter%20Chair%20%20Y-%20Top%20things%20to%20know%20v2.docx?web=1" target="_blank" rel="noopener"><span class="ft doc">DOCX</span><span><span class="rt">Chapter Chair Y: top things to know (v2)</span><span class="rd">Core briefing for first-time Chapter Chairs</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/Case%20Studies.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">Case studies</span><span class="rd">Pool for the one-topic-per-table case study rounds</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/CCW%20Y%20Chicago%20Eval.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">CCW Y evaluation: Chicago</span><span class="rd">Participant feedback from the previous GLC</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/CCW%20Y%20Sydney%20Eval.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">CCW Y evaluation: Sydney</span><span class="rd">Participant feedback from the previous GLC</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/_WDTM%20Montreal%20Slides%20-%20as%20of%2016%20Sep.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">WDTM Montreal slides (16 Sep)</span><span class="rd">Large file, about 109 MB</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://www.ypoconnect.org/#/memberProfile?memberId=88fad1c4-7de3-de11-8d75-005056923298" target="_blank" rel="noopener"><span class="ft">Profile</span><span><span class="rt">Salim Dewji</span><span class="rd">New Chapter Champion Workshop. Has offered to support incoming CCs if needed.</span></span><span class="arw">↗</span></a></li>
+        </ul>
+      </div>
+      <div class="rgroup">
+        <h3>Presentations</h3>
+        <ul class="rlist">
+          <li><div class="soon"><span class="ft">Deck</span><span><span class="rt">CCW Y 2027 workshop deck</span><span class="rd">Built in Canva, the approved tool for GLC workshop presentations</span></span><span class="chip">Coming soon</span></div></li>
+          <li><div class="soon"><span class="ft">Deck</span><span><span class="rt">Last year’s CCW Y deck</span><span class="rd">Delcie walks us through it on 12 Oct</span></span><span class="chip">Coming soon</span></div></li>
+          <li><div class="soon"><span class="ft">Guide</span><span><span class="rt">Leader’s Guide</span><span class="rd">Draft Dec 2026 to Jan 2027</span></span><span class="chip">Coming soon</span></div></li>
+          <li><div class="soon"><span class="ft">Guide</span><span><span class="rt">Participant Guide &amp; worksheets</span><span class="rd">Draft Dec 2026 to Jan 2027</span></span><span class="chip">Coming soon</span></div></li>
+          <li><div class="soon"><span class="ft">Form</span><span><span class="rt">Pre-workshop survey</span><span class="rd">Biggest concerns, most confident, anticipated challenge</span></span><span class="chip">Coming soon</span></div></li>
+          <li><div class="soon"><span class="ft">Pack</span><span><span class="rt">Chapter Commitments pre-read</span><span class="rd">Review with the CM and outgoing CC before GLC</span></span><span class="chip">Coming soon</span></div></li>
+          <li><div class="soon"><span class="ft">PDF</span><span><span class="rt">Follow-up PDF &amp; resource index</span><span class="rd">Hyperlinked, numbered so participants can note resources in the room</span></span><span class="chip">Coming soon</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band paper" id="notes">
+  <div class="wrap">
+    <div class="eyebrow">After each call</div>
+    <h2 class="sec-h">Meeting notes</h2>
+    <p class="lede">Decisions, actions and owners from each team call, newest first.</p>
+
+    <details class="note" open>
+      <summary>
+        <div><h3>Mon 5 Oct 2026 · First planning call</h3><span class="sm">Alexandra (organiser), Delcie, Elizabeth, Nerissa, Paige · From the Zoom AI summary (shared by Alexandra) and Paige’s notes</span></div>
+        <span class="tog"></span>
+      </summary>
+      <div class="nbody">
+        <div class="full"><p class="quote">Theme: architecture. Structure, connections and a ladder, layered around the topic names we already use.</p></div>
+        <div class="full">
+          <h4>Recap</h4>
+          <p class="recap">We planned the content and delivery approach for the workshop. The audience learns most through interactive methods such as case studies, so we won’t rely on pre-reads. Delcie shared what she learned last year: cover the essentials thoroughly, because most participants are new to chapter leadership. We keep the existing topic names and structure and add an architecture analogy. Guest speakers stay to a minimum, and Chapter Commitments gets a positive tone. Nerissa walked us through her management responsibilities spreadsheet, and Paige proposed one central space for all workshop materials.</p>
+        </div>
+        <div>
+          <h4>Agenda (sent 1 Oct)</h4>
+          <ol>
+            <li>Apeiron in-person sessions</li>
+            <li>Review of last year’s materials</li>
+            <li>Key content to include</li>
+            <li>Ideas and creative input</li>
+            <li>Next steps</li>
+          </ol>
+        </div>
+        <div>
+          <h4>Agreed</h4>
+          <ul>
+            <li>Keep Delcie’s four buckets: Foundation · Design &amp; Execution · Building · Ribbon Cutting.</li>
+            <li>Bring Chapter Commitments back in, with a positive, supportive tone.</li>
+            <li>Frame every topic for a first-time Chapter Chair; cover it comprehensively.</li>
+            <li>The workshop is a transition moment: succession, handover, leave the chapter better than you found it.</li>
+            <li>Interactive over presentational, with light case studies (a different topic per table).</li>
+            <li>Casual: no costumes or elaborate activities.</li>
+            <li>Minimal guests. Chapter Commitments guests are a nice-to-have, set up by the Champions first.</li>
+            <li>Delcie promotes the Apeiron Program at GLC.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Before and after the workshop</h4>
+          <ul>
+            <li>One pre-read: Chapter Commitment data, reviewed with the CM and outgoing CC in a transition meeting.</li>
+            <li>Pre-workshop survey: biggest concerns, most confident, anticipated challenge.</li>
+            <li>Hyperlinked follow-up PDF plus an index of tools and resources.</li>
+            <li>The RACI Excel is our live tool.</li>
+            <li>One shared, non-Google space for the RACI, presentation links, notes and schedule.</li>
+            <li>Materials final by the Christmas break; rehearse January to GLC.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Actions</h4>
+          <ul>
+            <li><b>Delcie</b>: review the content PDF and decide which topics to prioritise, which move to post-reads, and where case studies are most needed.</li>
+            <li><b>Delcie</b>: walk through last year’s deck on 12 Oct and flag what works and what needs updating; promote Apeiron at GLC.</li>
+            <li><b>Elizabeth</b>: review the content PDF for priority topics and areas to improve.</li>
+            <li><b>Nerissa</b>: share the management to-do spreadsheet with the team for reference. <a class="chip ok" href="#tasks">Done: see the task list below</a></li>
+            <li><b>Paige</b>: send the notes from this call and a high-level agenda for 12 Oct. <a class="chip ok" href="#calls">Done: in this hub</a></li>
+            <li><b>Paige</b>: create a shared, non-Google space for the RACI, presentation links and meeting notes. <span class="chip ok">Done: this hub</span></li>
+            <li><b>Paige</b>: draft notes and guidance for the Chapter Commitments section so it lands with a positive, supportive tone.</li>
+            <li><b>Paige</b>: decline Alan Hepburn’s request to join the GLC session, as Delcie will cover the Apeiron content. <span class="chip ok">Done</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Discussion highlights</h4>
+          <ul>
+            <li><b>Pre-reads.</b> Delcie: people rarely read them, so how we deliver matters more than where the content sits. Discussion and examples land better than data on slides.</li>
+            <li><b>Case studies.</b> Nerissa: case studies were the most engaging format in a workshop that scored nearly perfect ratings. We’ll review the existing ones and pick the most relevant.</li>
+            <li><b>Gaps.</b> Chapter Commitments, a major focus last year, is missing from the current content table. Global updates were cut back significantly from last year.</li>
+            <li><b>Structure.</b> Content sits in Delcie’s four buckets, with some topics spread across several sessions. Keep coverage comprehensive: this audience is new to chapter leadership.</li>
+            <li><b>Transition.</b> Elizabeth: the workshop is the handover moment, so outgoing chairs should focus on succession planning and keeping the chapter running smoothly.</li>
+            <li><b>Naming.</b> Nerissa: themed designs often lose the official topic names. Alexandra confirmed we keep them and add the architecture elements on top, following Elizabeth’s Montreal example.</li>
+            <li><b>Resources.</b> Fewer pre-reads and stronger post-workshop resources: hyperlinked documents and a numbered index participants can note during the session.</li>
+            <li><b>Survey.</b> A pre-workshop survey on concerns and challenges lets Delcie and Elizabeth adjust content before GLC.</li>
+            <li><b>Guests.</b> Keep guest speakers to a minimum to avoid timing disruptions and technical issues.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Owners to agree on 12 Oct</h4>
+          <ul>
+            <li>Pre-workshop survey</li>
+            <li>Index document &amp; follow-up PDF</li>
+            <li>Case study selection</li>
+            <li>Chapter Commitments pre-read pack</li>
+            <li>Chapter Commitments guests</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="band" id="tasks">
+  <div class="wrap">
+    <div class="eyebrow">WDTM RACI 2027</div>
+    <h2 class="sec-h">Management task list</h2>
+    <p class="lede">Every responsibility from Nerissa’s RACI, grouped by phase. Tick a task when it’s done and everyone with access to this page sees it.</p>
+
+    <div class="tbar">
+      <div class="prog">
+        <span class="num tnum" id="p-num">0<small>of 71 done</small></span>
+        <span class="meter" aria-hidden="true"><i id="p-bar"></i></span>
+        <span class="counts" id="p-counts"></span>
+      </div>
+      <div class="filters">
+        <div><span class="flabel">Show</span><span class="seg" id="f-status" role="group" aria-label="Filter by status">
+          <button type="button" data-v="open" aria-pressed="true">Open</button>
+          <button type="button" data-v="overdue" aria-pressed="false">Overdue</button>
+          <button type="button" data-v="now" aria-pressed="false">Due now</button>
+          <button type="button" data-v="upcoming" aria-pressed="false">Upcoming</button>
+          <button type="button" data-v="done" aria-pressed="false">Done</button>
+          <button type="button" data-v="all" aria-pressed="false">All</button>
+        </span></div>
+        <div><span class="flabel">Responsible</span><span class="seg" id="f-role" role="group" aria-label="Filter by responsible role">
+          <button type="button" data-v="all" aria-pressed="true">Everyone</button>
+          <button type="button" data-v="MP" aria-pressed="false">MP</button>
+          <button type="button" data-v="Champion" aria-pressed="false">Champions</button>
+          <button type="button" data-v="LDT" aria-pressed="false">LDT</button>
+          <button type="button" data-v="VP" aria-pressed="false">VP</button>
+          <button type="button" data-v="WDT/OE" aria-pressed="false">WDT/OE</button>
+        </span></div>
+      </div>
+      <div class="legend">
+        <span><b>MP</b> Management Partners (Alexandra &amp; Paige)</span>
+        <span><b>Champions</b> Delcie &amp; Elizabeth</span>
+        <span><b>LDT</b> Leadership Development Team partner</span>
+        <span><b>VP</b> Virtual Producer</span>
+        <span><b>WDT/OE</b> Wider Workshop Delivery Team / Officer Education</span>
+      </div>
+      <div class="sync" id="sync"><span class="dot"></span><span id="sync-t">Loading shared ticks…</span></div>
+      <div class="msg" id="t-msg" role="status" aria-live="polite"></div>
+    </div>
+    <div id="phases"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="lockup"><img src="data:image/png;base64,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" alt="YPO mark"><span class="word">YPO</span><span class="region">Chapter Chair Y<br>Workshop</span></span>
+    <p class="small"><b>Workshop Delivery Team · GLC 2027.</b> Calls from the “Y CC Workshop – Team Meeting” calendar series. Links from the 1 Oct agenda and Nerissa’s shares. Tasks from WDTM RACI 2027. Last updated Mon 5 Oct 2026.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var DAY = 864e5;
+var MON = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+var MNAMES = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var LONDON = "Europe/London";
+
+function el(tag, cls, text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+
+/* ---- dates in UK time ---- */
+function ukParts(ms){
+  var f = new Intl.DateTimeFormat("en-GB",{timeZone:LONDON,year:"numeric",month:"numeric",day:"numeric"});
+  var p = {}; f.formatToParts(new Date(ms)).forEach(function(x){ p[x.type]=x.value; });
+  return {y:+p.year, m:+p.month-1, d:+p.day};
+}
+function ukDayIndex(ms){ var p=ukParts(ms); return Math.round(Date.UTC(p.y,p.m,p.d)/DAY); }
+function relDays(n){
+  if(n<0) return "Done";
+  if(n===0) return "Today";
+  if(n===1) return "Tomorrow";
+  if(n<14) return "In "+n+" days";
+  if(n<60) return "In "+Math.round(n/7)+" weeks";
+  return "In "+Math.round(n/30.44)+" months";
+}
+function fmtDate(y,m,d){ var dt=new Date(Date.UTC(y,m,d)); return DOW[dt.getUTCDay()]+" "+d+" "+MNAMES[m]; }
+
+var viewerTZ = (function(){ try{ return Intl.DateTimeFormat().resolvedOptions().timeZone || ""; }catch(e){ return ""; } })();
+function localTime(ms){
+  if(!viewerTZ || viewerTZ===LONDON) return "";
+  try{
+    var f = new Intl.DateTimeFormat(undefined,{weekday:"short",hour:"numeric",minute:"2-digit"});
+    return "Your time: "+f.format(new Date(ms));
+  }catch(e){ return ""; }
+}
+
+/* ---- calls: weekly Mondays 15:00-16:00 UK, 12 Oct 2026 to 28 Jun 2027 ---- */
+var CALLS = [];
+(function(){
+  var d = Date.UTC(2026,9,12), last = Date.UTC(2027,5,28);
+  while(d<=last){
+    var bst = d < Date.UTC(2026,9,25) || d >= Date.UTC(2027,2,28);
+    var start = d + (bst?14:15)*3600e3;
+    var dt = new Date(d);
+    CALLS.push({key: dt.toISOString().slice(0,10), y:dt.getUTCFullYear(), m:dt.getUTCMonth(), d:dt.getUTCDate(), start:start, end:start+3600e3});
+    d += 7*DAY;
+  }
+})();
+var FLAGS = {
+  "2026-12-21":["Christmas week",""],
+  "2026-12-28":["Christmas week",""],
+  "2027-01-04":["Rehearsals begin","hot"],
+  "2027-03-15":["GLC Bangkok workshop day","warn"],
+  "2027-05-03":["GLC San Diego workshop day","warn"]
+};
+var AGENDAS = {
+  "2026-10-12": {
+    title: "Running through content",
+    items: [
+      "Actions round-up",
+      "Last year’s deck, walked through by Delcie",
+      "Presentation run-through: where to add things",
+      "Content priorities from Delcie’s and Elizabeth’s reviews",
+      "Chapter Commitments",
+      "Tools and resources",
+      "Owners and next steps"
+    ],
+    owners: ["Pre-workshop survey","Index doc & follow-up PDF","Case study selection","Chapter Commitments pre-read pack","Chapter Commitments guests"]
+  }
+};
+
+/* ---- RACI tasks: [phase, responsibility, due, R, A, C, I, change] ---- */
+var PHASES = ["","Foundations and onboarding","Planning, design, and project controls","Content, resources, and readiness","Logistics and participant communication","Delivery and participant experience","Closeout and organizational learning"];
+var CH = {N:"New",R:"Revised",T:"Retained"};
+var T = [
+[1,"Review prior workshop feedback, participant trends, and officer needs.","Aug-early Sep 2026","MP","LDT","Champion(s)","WDT/OE","N"],
+[1,"Review the Management Partners Playbook, complete required pre-work, and become familiar with workshop tools and shared workspaces.","Aug-Sep 2026","MP","MP","LDT","Champion(s)","N"],
+[1,"Connect with Champion(s) and establish a collaborative working relationship.","Sep 2026","MP","MP","Champion(s), LDT","WDT/OE","T"],
+[1,"Align roles, expectations, timelines, decision routes, and the support approach using the RACI and planning tools.","Sep 2026","MP","LDT","Champion(s)","WDT/OE","N"],
+[1,"Establish agreed communication channels and include the LDT Partner in relevant meetings and shared workspaces.","Sep 2026","MP","MP","Champion(s), LDT","WDT/OE","N"],
+[1,"Plan the meeting cadence.","Sep 2026","MP","MP","Champion(s), LDT","WDT/OE","T"],
+[1,"Create and send calendar invitations and virtual links for all agreed touchpoints.","Sep 2026-Jun 2027","MP","MP","Champion(s), LDT","WDT/OE","T"],
+[1,"Capture initial decisions, questions, commitments, and next steps from WDTM.","Sep 2026","MP","MP","Champion(s), LDT","WDT/OE","N"],
+[1,"Share initial resources, previous analysis, survey reports, templates, and approved materials.","Aug-Sep 2026","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[2,"Create meeting agendas.","Sep 2026-Jun 2027","MP","MP","Champion(s), LDT","WDT/OE","T"],
+[2,"Define the workshop purpose, audience, intended outcomes, core message, and participant journey.","Oct 2026","MP, Champion(s)","Champion(s)","LDT","WDT/OE","N"],
+[2,"Confirm ownership of major content areas and planning tasks.","Oct 2026","MP","Champion(s)","LDT","WDT/OE","N"],
+[2,"Develop the workshop outline, flow, activities, discussions, transitions, and reflection moments.","Nov 2026","MP, Champion(s)","Champion(s)","LDT","WDT/OE","N"],
+[2,"Review the full participant journey for clarity, consistency, engagement, and alignment with Officer Education standards.","Nov 2026","MP","Champion(s)","LDT","WDT/OE","N"],
+[2,"Maintain the Workshop Support Log with requests, issues, context, recommendations, and resolutions.","Sep 2026-Jun 2027 (ongoing)","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[2,"Review and update the Workshop Scorecard.","Sep 2026-Jun 2027 (monthly)","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[2,"Monitor milestones, deadlines, dependencies, and overdue actions.","Sep 2026-Jun 2027 (ongoing)","MP, LDT","LDT","Champion(s)","WDT/OE","N"],
+[2,"Identify risks or blockers early, agree recovery actions, and escalate when required.","Sep 2026-Jun 2027 (ongoing)","MP","LDT","Champion(s), WDT/OE","Affected partners","N"],
+[2,"Coordinate cross-functional support and connect the team to the right owner.","Sep 2026-Jun 2027 (as needed)","LDT","LDT","MP, Champion(s), WDT/OE","Affected partners","N"],
+[2,"Analyze registration data and share insights with the team.","Jan-May 2027","MP","MP","LDT","Champion(s), WDT/OE","T"],
+[2,"Create a briefing for Champion(s) about registered officers and participant needs.","Feb-Mar and Apr-May 2027","MP","MP","LDT","Champion(s)","T"],
+[2,"Analyze planned workshop time (lecture, discussion, and activity) and share findings with the LDT Partner.","Nov 2026; review May-Jun 2027","MP","Champion(s)","LDT","WDT/OE","R"],
+[3,"Develop or update the Leader's Guide.","Dec 2026-Jan 2027; update Apr-May 2027","MP","Champion(s)","LDT","WDT/OE","R"],
+[3,"Develop or update the Participant Guide and participant worksheets.","Dec 2026-Jan 2027; update Apr-May 2027","MP","Champion(s)","LDT","WDT/OE","R"],
+[3,"Develop and quality-check the slide deck, activities, examples, and supporting resources.","Dec 2026-Jan 2027","MP","Champion(s)","LDT","WDT/OE","N"],
+[3,"Prepare virtual versions of materials and redesign activities for virtual engagement.","Mar-May 2027","MP","Champion(s)","LDT, VP","WDT/OE","R"],
+[3,"Request resources or speakers from the board and other networks.","Nov 2026-Jan 2027","MP","Champion(s)","LDT","WDT/OE","T"],
+[3,"Identify attending member resources and potential resource speakers.","Nov 2026-Jan 2027","MP","Champion(s)","LDT","WDT/OE","T"],
+[3,"Confirm resource speakers through the established process and coordinate their contribution.","Dec 2026-Feb 2027","MP","Champion(s)","LDT, resource speaker","WDT/OE","R"],
+[3,"Submit budget requests.","Nov-Dec 2026","MP","LDT","Champion(s), WDT/OE","Finance/approver","T"],
+[3,"Purchase approved workshop items.","Jan-Feb 2027","MP","LDT","Champion(s), WDT/OE","Finance/approver","T"],
+[3,"Complete a documented readiness review covering content, materials, speakers, logistics, communications, risks, and open decisions.","Feb-early Mar; Apr-May 2027","MP, LDT","LDT","Champion(s), VP, WDT/OE","Delivery team","N"],
+[3,"Prepare and confirm the run-of-show, speaker flow, team roles, and escalation route.","Feb-Mar; Apr-May 2027","MP","Champion(s)","LDT, VP, speakers","WDT/OE","N"],
+[3,"Manage the slide deck during run-throughs.","Feb-Mar; Apr-May 2027","MP","Champion(s)","LDT, VP","WDT/OE","T"],
+[3,"Schedule and manage onsite rehearsals and walkthroughs.","Mar and May 2027","MP","Champion(s)","LDT, venue/AV, speakers","WDT/OE","T"],
+[3,"Schedule virtual rehearsals with the producer.","Mar-May 2027","MP","MP","Champion(s), LDT, VP","WDT/OE","T"],
+[3,"Attend virtual facilitator and platform training.","Mar-May 2027","MP","MP","LDT, VP","Champion(s)","T"],
+[4,"Submit print requests and specifications by the agreed deadline.","Feb-Mar; Apr-May 2027","MP","LDT","Champion(s), WDT/OE","Print partner","T"],
+[4,"Check that printed materials are complete and accurate.","Mar and May 2027","MP","MP","LDT, Champion(s)","WDT/OE","T"],
+[4,"Ship workshop materials to the GLC location.","Feb-Mar; Apr-May 2027","WDT/OE","LDT","MP","Champion(s)","T"],
+[4,"Act as the point of contact for room setup and AV requirements.","Feb-Mar; Apr-May 2027","MP","LDT","Champion(s), venue/AV","WDT/OE","T"],
+[4,"Create and manage the seating chart.","Mar and May 2027","MP","Champion(s)","LDT","WDT/OE","T"],
+[4,"Complete onsite room setup and confirm seating, AV, materials, and speaker flow.","Mar and May 2027","MP, WDT/OE","LDT","Champion(s), venue/AV","Delivery team","R"],
+[4,"Retrieve supplies from the OE office at the onsite GLC location.","Mar and May 2027","MP","MP","LDT","Champion(s)","T"],
+[4,"Box materials and return them to the OE office, when applicable.","Mar and May 2027","MP","MP","LDT","Champion(s)","T"],
+[4,"Draft and send participant invitations, reminders, and 3-2-1 emails.","Jan-May 2027","MP","MP","Champion(s), LDT","Participants","R"],
+[4,"Create and manage WhatsApp or other agreed participant communication groups.","Feb-May 2027","MP","MP","Champion(s), LDT","Participants","R"],
+[4,"Draft and send pre- and post-session communications for virtual workshops, including joining instructions.","Mar-Jun 2027","MP","MP","Champion(s), LDT, VP","Participants","R"],
+[4,"Communicate post-workshop resources, next steps, and survey links; encourage timely survey completion.","Mar-Jun 2027 (after each delivery)","MP","MP","Champion(s), LDT","Participants","R"],
+[5,"Participate in WDT all-hands meetings, huddles, and the agreed live delivery channel.","Mar-May 2027","MP","MP","LDT","WDT/OE","N"],
+[5,"Partner with Champion(s) to support learning, connection, and participation.","Mar-May 2027","MP","Champion(s)","LDT","WDT/OE","N"],
+[5,"Manage timing, slides, activities, transitions, and facilitation support during delivery.","Mar-May 2027","MP","Champion(s)","LDT, VP","WDT/OE","R"],
+[5,"Monitor participant energy, engagement, questions, and confusion; recommend adjustments to Champion(s).","Mar-May 2027","MP","Champion(s)","LDT","WDT/OE","R"],
+[5,"Coordinate onsite logistics and resolve room, materials, AV, or timing issues with minimal participant disruption.","Mar and May 2027","MP","LDT","Champion(s), venue/AV, WDT/OE","Delivery team","R"],
+[5,"Coordinate virtual production, roles, timing, transitions, and real-time issue resolution.","Mar-Jun 2027","VP, MP","LDT","Champion(s)","WDT/OE","N"],
+[5,"Communicate significant changes or delivery issues to the LDT Partner through the agreed channel.","Mar-Jun 2027 (as needed)","MP","MP","Champion(s), LDT","Affected partners","R"],
+[5,"Support a Champion who is struggling with confidence or time.","Mar-Jun 2027 (as needed)","MP","Champion(s)","LDT","WDT/OE","T"],
+[5,"Debrief misalignment or conflict with the co-Management Partner and notify the LDT Partner when needed.","Sep 2026-Jun 2027 (as needed)","MP","MP","LDT","Champion(s)","R"],
+[5,"Collect participant feedback and document observations and recommendations.","Mar-Jun 2027 (each delivery)","MP, LDT","LDT","Champion(s)","WDT/OE","N"],
+[6,"Participate in the post-delivery debrief and review what worked, what did not, and what should change.","Mar-Jun 2027 (after each delivery)","MP","LDT","Champion(s), WDT/OE","Delivery team","N"],
+[6,"Offer constructive post-delivery feedback to Champion(s).","Mar-Jun 2027 (after each delivery)","MP","MP","LDT","Champion(s)","T"],
+[6,"Complete and organize the Lessons Learned Log after each phase and delivery.","Aug 2026-Jul 2027 (each phase)","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[6,"Complete outstanding follow-up actions and share agreed notes, materials, resources, and actions.","Mar-Jun 2027","MP","LDT","Champion(s)","Participants, WDT/OE","N"],
+[6,"Archive final materials in the agreed shared location and formally close the workshop portfolio.","May-Jun 2027","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[6,"Complete the Workshop Review and Analysis using feedback, observations, and recurring themes.","Jun-Jul 2027","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[6,"Review the AI/Otter meeting or workshop analysis, validate the output, and incorporate useful findings.","Jun-Jul 2027","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[6,"Complete the planned-versus-actual comparison, including timing, delivery, logistics, and outcomes.","Jun-Jul 2027","LDT","LDT","MP, Champion(s)","WDT/OE","N"],
+[6,"Document and share recommendations for content, facilitation, logistics, communications, and participant experience.","Jun-Jul 2027","MP, LDT","LDT","Champion(s)","WDT/OE","N"],
+[6,"Update guides, templates, and planning tools based on agreed improvements.","Jun-Jul 2027","MP","LDT","Champion(s), WDT/OE","Future delivery team","N"],
+[6,"Celebrate team and Champion effort after delivery.","Mar-Jun 2027 (after each delivery)","MP","MP","LDT","Champion(s), WDT/OE","T"],
+[6,"Submit expense reports on time.","Mar-Jun 2027 (after travel/delivery)","MP","MP","LDT","Finance","T"]
+];
+
+function parseDue(s){
+  var re=/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b|\b(20\d\d)\b/g, m, pend=[], out=[];
+  while((m=re.exec(s))){ if(m[1]) pend.push(MON[m[1]]); else { var y=+m[2]; pend.forEach(function(mm){ out.push(y*12+mm); }); pend=[]; } }
+  pend.forEach(function(mm){ out.push(2027*12+mm); });
+  return {start:Math.min.apply(null,out), end:Math.max.apply(null,out)};
+}
+var TASKS = T.map(function(r,i){
+  var p = parseDue(r[2]);
+  return {id:"t"+(i<9?"0":"")+(i+1), phase:r[0], text:r[1], due:r[2], R:r[3], A:r[4], C:r[5], I:r[6], ch:r[7], start:p.start, end:p.end};
+});
+window.__TASKS = TASKS;
+
+/* ---- shared tick state ---- */
+var ticks = {};          // id -> {done, by, at}
+var names = {};          // user id -> display name
+var canWrite = false, dbRef = null, userNs = null, uid = null, localMode = false;
+var filt = {status: store("ccwy.fs") || "open", role: store("ccwy.fr") || "all"};
+if(["open","overdue","now","upcoming","done","all"].indexOf(filt.status)<0) filt.status="open";
+if(["all","MP","Champion","LDT","VP","WDT/OE"].indexOf(filt.role)<0) filt.role="all";
+
+function nowMs(){ return Date.now(); }
+function curMonthIdx(){ var p=ukParts(nowMs()); return p.y*12+p.m; }
+function statusOf(t){
+  var tk = ticks[t.id];
+  if(tk && tk.done) return "done";
+  var c = curMonthIdx();
+  if(t.end < c) return "overdue";
+  if(t.start <= c) return "now";
+  return "upcoming";
+}
+function monthLabel(idx){ return MNAMES[idx%12]+" "+Math.floor(idx/12); }
+
+/* ---- render: countdown ---- */
+function renderCountdown(){
+  var now = nowMs();
+  function days(targetUTC){ return Math.max(0, Math.ceil((targetUTC-now)/DAY)); }
+  var bkk = Date.UTC(2027,2,15) - 7*3600e3;   // 15 Mar 2027, Bangkok midnight
+  var sd  = Date.UTC(2027,4,3) + 7*3600e3;    // 3 May 2027, San Diego midnight
+  setCd("cd-bkk", days(bkk)); setCd("cd-sd", days(sd));
+  var nc = nextCall();
+  var ce = document.getElementById("cd-call"), cr = document.getElementById("cd-call-rel");
+  if(nc){
+    ce.textContent = fmtDate(nc.y,nc.m,nc.d)+" · 15:00 UK";
+    var a = AGENDAS[nc.key];
+    var n = ukDayIndex(nc.start) - ukDayIndex(now);
+    var live = now >= nc.start && now < nc.end;
+    cr.textContent = (live ? "Happening now" : relDays(n)) + (a ? " · "+a.title : "");
+  } else { ce.textContent = "No calls scheduled"; cr.textContent = ""; }
+}
+function setCd(id, n){ var e=document.getElementById(id); e.textContent=String(n); var s=el("small",null,n===1?"day":"days"); e.appendChild(s); }
+function nextCall(){ var now=nowMs(); for(var i=0;i<CALLS.length;i++){ if(CALLS[i].end>now) return CALLS[i]; } return null; }
+
+/* ---- render: timeline ---- */
+var MS = [
+  {date:[2026,9,12], at:Date.UTC(2026,9,12,14), short:"Next call", title:"Next call: running through content", desc:"Delcie walks through last year’s deck and we agree where new content goes.", pos:"up"},
+  {date:[2026,10,1], at:Date.UTC(2026,10,1), short:"Registration opens", title:"GLC registration opens", desc:"Sunday 1 November. Registration data feeds our participant briefing from January.", pos:"down"},
+  {date:[2026,11,31], at:Date.UTC(2026,11,31,23), short:"Content complete", title:"Content complete", desc:"Deck, guides and resources final by the end of December, before the Christmas break.", pos:"up"},
+  {date:[2027,0,4], at:Date.UTC(2027,0,4,15), short:"Rehearsals", title:"Rehearsals: January to GLC", desc:"Run-throughs on our Monday calls from 4 January until we fly to Bangkok.", pos:"down", band:[Date.UTC(2027,0,4), Date.UTC(2027,2,14)]},
+  {date:[2027,2,15], at:Date.UTC(2027,2,15), short:"GLC Bangkok", title:"GLC Bangkok", desc:"15–17 March 2027. Workshop blocks on Mon 15 and Tue 16; delivery team dinner Sun 14.", pos:"up", glc:true, range:"15–17 Mar 2027"},
+  {date:[2027,4,3], at:Date.UTC(2027,4,3), short:"GLC San Diego", title:"GLC San Diego", desc:"3–5 May 2027, with EDGE on 5–6 May. Workshop blocks on Mon 3 and Tue 4; dinner Sun 2.", pos:"down", glc:true, range:"3–5 May 2027"}
+];
+var T0 = Date.UTC(2026,9,1), T1 = Date.UTC(2027,4,12);
+function pct(ms){ return Math.max(0,Math.min(100,(ms-T0)/(T1-T0)*100)); }
+function renderTimeline(){
+  var now = nowMs(), track = document.getElementById("track"), months = document.getElementById("months"), list = document.getElementById("mlist");
+  track.textContent=""; months.textContent=""; list.textContent="";
+  track.appendChild(el("div","rail"));
+  var ep = el("div","elapsed"); ep.style.width = pct(now)+"%"; track.appendChild(ep);
+  var today = ukDayIndex(now), nextFound = false;
+  MS.forEach(function(m){
+    if(m.band){ var b=el("div","reh"); b.style.left=pct(m.band[0])+"%"; b.style.width=(pct(m.band[1])-pct(m.band[0]))+"%"; track.appendChild(b); }
+    var p = pct(m.at), node = el("div","ms"+(m.glc?" glc":"")+(m.at<now?" done":"")); node.style.left = p+"%";
+    if(!m.band) node.appendChild(el("span","dot"));
+    var lab = el("div","lab "+m.pos+(p<9?" l":(p>91?" r":""))); var b2=el("b",null,m.short); lab.appendChild(b2);
+    lab.appendChild(document.createTextNode(m.range || (fmtDate(m.date[0],m.date[1],m.date[2])+" "+m.date[0])));
+    node.appendChild(lab); track.appendChild(node);
+
+    var li = el("li"); var n = Math.round(Date.UTC(m.date[0],m.date[1],m.date[2])/DAY) - today;
+    li.appendChild(el("span","d tnum", m.range || (fmtDate(m.date[0],m.date[1],m.date[2])+" "+m.date[0])));
+    li.appendChild(el("h3",null,m.title));
+    li.appendChild(el("p",null,m.desc));
+    var st, cls;
+    if(m.band && today >= Math.round(m.band[0]/DAY) && today <= Math.round(m.band[1]/DAY)){ st="Under way"; cls="now"; }
+    else if(n<0){ st="Done"; cls="ok"; }
+    else { st=relDays(n); cls = nextFound ? "" : "hot"; nextFound = true; }
+    li.appendChild(el("span","chip "+cls, st));
+    list.appendChild(li);
+  });
+  var td = el("div","today"); td.style.left = pct(now)+"%"; td.appendChild(el("span",null,"Today")); track.appendChild(td);
+  for(var y=2026,mo=9; y*12+mo <= 2027*12+4; mo++){ if(mo>11){mo=0;y++;} var s=el("span",null,MNAMES[mo]+(mo===0?" "+y:"")); s.style.left=pct(Date.UTC(y,mo,15))+"%"; months.appendChild(s); }
+}
+
+/* ---- render: calls ---- */
+var showAllCalls = false;
+function startersFor(c){
+  var idx = c.y*12+c.m;
+  return TASKS.filter(function(t){ return t.start===idx; });
+}
+function renderCalls(){
+  var now = nowMs(), upcoming = CALLS.filter(function(c){ return c.end>now; });
+  var host = document.getElementById("next-call"); host.textContent="";
+  var nc = upcoming[0];
+  if(nc){
+    var a = AGENDAS[nc.key], box = el("div","next");
+    var w = el("div","when");
+    var n = ukDayIndex(nc.start)-ukDayIndex(now);
+    w.appendChild(el("span","tag", (now>=nc.start?"Happening now":"Next call · "+relDays(n))));
+    w.appendChild(el("span","day", fmtDate(nc.y,nc.m,nc.d)));
+    w.appendChild(el("span","t","15:00–16:00 UK"));
+    var lt = localTime(nc.start); if(lt) w.appendChild(el("span","loc",lt));
+    var j = el("a","btn gold","Join on Zoom ↗"); j.href="https://ypo.zoom.us/j/95910321865?jst=1"; j.target="_blank"; j.rel="noopener"; w.appendChild(j);
+    w.appendChild(el("span","id","Meeting ID 959 1032 1865"));
+    box.appendChild(w);
+    var ag = el("div","agenda");
+    if(a){
+      ag.appendChild(el("h3",null,"Agenda: "+a.title));
+      var ol = el("ol"); a.items.forEach(function(it){ ol.appendChild(el("li",null,it)); }); ag.appendChild(ol);
+      if(a.owners){ var ow=el("div","owners"); ow.appendChild(el("h4",null,"Owners to agree")); var tg=el("div","tags"); a.owners.forEach(function(o){ tg.appendChild(el("span",null,o)); }); ow.appendChild(tg); ag.appendChild(ow); }
+    } else {
+      ag.appendChild(el("h3",null,"Agenda to follow"));
+      ag.appendChild(el("p",null,"Paige shares the agenda ahead of each call. Actions from the last call are in the meeting notes below."));
+    }
+    var st0 = startersFor(nc);
+    if(st0.length){ var ow2=el("div","owners"); ow2.appendChild(el("h4",null,"Starting on the RACI in "+MNAMES[nc.m])); var tg2=el("div","tags"); st0.forEach(function(t){ tg2.appendChild(el("span",null,t.text.replace(/\.$/,""))); }); ow2.appendChild(tg2); ag.appendChild(ow2); }
+    box.appendChild(ag); host.appendChild(box);
+  }
+  var list = document.getElementById("calls-list"); list.textContent="";
+  var rest = upcoming.slice(1), shown = showAllCalls ? rest : rest.slice(0,7), seenMonth = {};
+  if(nc) seenMonth[nc.y*12+nc.m] = true;
+  rest.forEach(function(c){
+    var mi = c.y*12+c.m, first = !seenMonth[mi]; seenMonth[mi]=true;
+    if(shown.indexOf(c)<0) return;
+    var li = el("li");
+    li.appendChild(el("span","cdate tnum", fmtDate(c.y,c.m,c.d)+(c.y!==2026?" "+c.y:"")));
+    var tm = el("span","ctime tnum","15:00–16:00 UK"); var lt=localTime(c.start); if(lt) tm.appendChild(el("em",null,lt)); li.appendChild(tm);
+    var nt = el("span","cnote"); var row = el("span","row");
+    var a = AGENDAS[c.key];
+    row.appendChild(el("span",null, a ? "Agenda: "+a.title : "Agenda to follow"));
+    if(FLAGS[c.key]) row.appendChild(el("span","chip "+FLAGS[c.key][1], FLAGS[c.key][0]));
+    nt.appendChild(row);
+    if(first){
+      var st = startersFor(c);
+      if(st.length){
+        var s = el("span","starts"); s.appendChild(el("b",null,"Starting on the RACI in "+MNAMES[c.m]+": "));
+        var txt = st.slice(0,3).map(function(t){ return t.text.replace(/\.$/,""); }).join(" · ");
+        s.appendChild(document.createTextNode(txt + (st.length>3 ? " · +"+(st.length-3)+" more" : "")));
+        nt.appendChild(s);
+      }
+    }
+    li.appendChild(nt); list.appendChild(li);
+  });
+  var more = document.getElementById("calls-more");
+  if(rest.length>7){ more.hidden=false; more.textContent = showAllCalls ? "Show fewer calls" : "Show all "+rest.length+" upcoming calls"; }
+  else more.hidden = true;
+}
+document.getElementById("calls-more").addEventListener("click", function(){ showAllCalls=!showAllCalls; renderCalls(); });
+
+/* ---- render: tasks ---- */
+var taskEls = {};
+function buildTasks(){
+  var host = document.getElementById("phases"); host.textContent="";
+  for(var p=1;p<=6;p++){
+    var sec = el("div","phase"); sec.dataset.phase=p;
+    var h = el("div","phase-h"); var h3 = el("h3"); h3.appendChild(el("span",null,p+".")); h3.appendChild(document.createTextNode(PHASES[p])); h.appendChild(h3);
+    var pc = el("span","pc tnum"); pc.id="pc-"+p; h.appendChild(pc); sec.appendChild(h);
+    var ul = el("ul","tasks");
+    TASKS.filter(function(t){ return t.phase===p; }).forEach(function(t){
+      var li = el("li","task"); li.dataset.id=t.id;
+      var cb = el("input"); cb.type="checkbox"; cb.id="cb-"+t.id;
+      cb.addEventListener("change", function(){ toggle(t, cb.checked, cb); });
+      li.appendChild(cb);
+      var body = el("div");
+      var lab = el("label",null,t.text); lab.htmlFor = cb.id; body.appendChild(lab);
+      var meta = el("div","meta");
+      var sc = el("span","chip"); meta.appendChild(sc);
+      meta.appendChild(el("span","tnum",t.due));
+      var ra = el("span"); ra.appendChild(el("b",null,"R ")); ra.appendChild(document.createTextNode(t.R+"  ")); ra.appendChild(el("b",null,"A ")); ra.appendChild(document.createTextNode(t.A)); meta.appendChild(ra);
+      meta.appendChild(el("span",null,CH[t.ch]));
+      body.appendChild(meta);
+      body.appendChild(el("div","ci","Consulted: "+t.C+" · Informed: "+t.I));
+      var by = el("div","by"); by.hidden=true; body.appendChild(by);
+      li.appendChild(body); ul.appendChild(li);
+      taskEls[t.id] = {li:li, cb:cb, chip:sc, by:by};
+    });
+    sec.appendChild(ul);
+    var em = el("p","empty","Nothing here for this filter."); em.hidden=true; sec.appendChild(em);
+    host.appendChild(sec);
+  }
+}
+var STLABEL = {done:["Done","ok"], overdue:["Overdue","warn"], now:["Due now","now"], upcoming:["Upcoming",""]};
+function fmtShort(iso){ try{ var d=new Date(iso); var p=ukParts(d.getTime()); return p.d+" "+MNAMES[p.m]; }catch(e){ return ""; } }
+function applyTasks(){
+  var counts = {done:0,overdue:0,now:0,upcoming:0}, perPhase = {};
+  TASKS.forEach(function(t){
+    var s = statusOf(t), e = taskEls[t.id], tk = ticks[t.id];
+    counts[s]++;
+    perPhase[t.phase] = perPhase[t.phase] || [0,0]; perPhase[t.phase][1]++; if(s==="done") perPhase[t.phase][0]++;
+    e.cb.checked = s==="done";
+    e.cb.disabled = !canWrite || e.busy;
+    e.li.classList.toggle("done", s==="done");
+    e.chip.className = "chip "+STLABEL[s][1];
+    e.chip.textContent = s==="upcoming" ? "Starts "+monthLabel(t.start) : STLABEL[s][0];
+    if(tk && tk.done){
+      var who = tk.by && names[tk.by] ? names[tk.by] : "";
+      e.by.textContent = "Ticked"+(who?" by "+who:"")+(tk.at?" · "+fmtShort(tk.at):"");
+      e.by.hidden = false;
+    } else e.by.hidden = true;
+    var show = (filt.status==="all") || (filt.status==="open" ? s!=="done" : s===filt.status);
+    if(show && filt.role!=="all") show = t.R.indexOf(filt.role)>=0;
+    e.li.hidden = !show;
+  });
+  for(var p=1;p<=6;p++){
+    var pc = document.getElementById("pc-"+p); pc.textContent = perPhase[p][0]+" of "+perPhase[p][1]+" done";
+    var sec = document.querySelector('.phase[data-phase="'+p+'"]');
+    var any = TASKS.some(function(t){ return t.phase===p && !taskEls[t.id].li.hidden; });
+    sec.querySelector(".empty").hidden = any;
+  }
+  var tot = TASKS.length;
+  var pn = document.getElementById("p-num"); pn.textContent=String(counts.done); pn.appendChild(el("small",null,"of "+tot+" done"));
+  document.getElementById("p-bar").style.width = (counts.done/tot*100)+"%";
+  var pcs = document.getElementById("p-counts"); pcs.textContent="";
+  pcs.appendChild(el("span","chip warn",counts.overdue+" overdue"));
+  pcs.appendChild(el("span","chip now",counts.now+" due now"));
+  pcs.appendChild(el("span","chip",counts.upcoming+" upcoming"));
+}
+function setSeg(id, key){
+  var seg = document.getElementById(id);
+  Array.prototype.forEach.call(seg.querySelectorAll("button"), function(b){
+    b.setAttribute("aria-pressed", String(b.dataset.v===filt[key]));
+    b.addEventListener("click", function(){
+      filt[key]=b.dataset.v; store(key==="status"?"ccwy.fs":"ccwy.fr", b.dataset.v);
+      Array.prototype.forEach.call(seg.querySelectorAll("button"), function(x){ x.setAttribute("aria-pressed", String(x===b)); });
+      applyTasks();
+    });
+  });
+}
+function setSync(mode, text){
+  var s = document.getElementById("sync"); s.className = "sync "+(mode||"");
+  document.getElementById("sync-t").textContent = text;
+}
+function setMsg(t){ document.getElementById("t-msg").textContent = t||""; }
+
+async function resolveNames(){
+  if(!userNs) return;
+  var ids = []; Object.keys(ticks).forEach(function(k){ var b=ticks[k].by; if(b && ids.indexOf(b)<0) ids.push(b); });
+  if(!ids.length) return;
+  try{ var ps = await userNs.profiles(ids); ids.forEach(function(id){ var p=ps[id]; names[id] = (p && p.isMe) ? "you" : ((p && p.name) || ""); }); }catch(e){}
+  applyTasks();
+}
+async function toggle(t, done, cb){
+  if(localMode){
+    if(done) ticks[t.id] = {done:true, by:null, at:new Date().toISOString()}; else delete ticks[t.id];
+    store("ccwy.ticks", JSON.stringify(ticks)); applyTasks(); return;
+  }
+  if(!dbRef || !canWrite){ cb.checked = !done; return; }
+  var e = taskEls[t.id], prev = ticks[t.id];
+  e.busy = true;
+  ticks[t.id] = {done:done, by:uid, at:new Date().toISOString()};
+  applyTasks(); setMsg("");
+  try{
+    await dbRef.doc("ticks/"+t.id).set({done:done, by:uid, at:ticks[t.id].at});
+  }catch(err){
+    if(prev) ticks[t.id]=prev; else delete ticks[t.id];
+    var code = err && err.code;
+    if(code==="invalid_argument" || code==="not_granted"){ canWrite=false; setSync("ro","View only. To tick tasks, ask Paige for Contributor access to this page."); }
+    else setMsg("That tick didn’t save. Check your connection and try again.");
+  }
+  e.busy = false; applyTasks(); resolveNames();
+}
+
+async function connect(){
+  var c = window.claude;
+  if(!c || typeof c.use!=="function"){
+    localMode = true; canWrite = true;
+    try{ var saved = store("ccwy.ticks"); ticks = saved ? JSON.parse(saved) : {}; }catch(e){ ticks = {}; }
+    setSync("ro","Ticks are saved in this browser only. Open the hub in Claude to share ticks with the team.");
+    applyTasks(); return;
+  }
+  var res = await Promise.all([c.use("db"), c.use("user")]);
+  dbRef = res[0]; userNs = res[1];
+  if(!dbRef){ setSync("ro","Shared ticks aren’t available in this view. Open the page signed in to Claude to tick tasks."); return; }
+  if(userNs){ try{ uid = await userNs.id(); }catch(e){} }
+  var w = null; if(userNs){ try{ w = await userNs.can("data.write"); }catch(e){} }
+  canWrite = w !== false;
+  setSync(canWrite ? "live" : "ro", canWrite ? "Live. Ticks are shared with everyone on this page." : "View only. To tick tasks, ask Paige for Contributor access to this page.");
+  dbRef.collection("ticks").onSnapshot(function(snap){
+    var next = {};
+    snap.docs.forEach(function(d){ if(d.exists){ var v=d.data(); next[d.id] = {done:!!v.done, by:v.by||null, at:v.at||null}; } });
+    Object.keys(taskEls).forEach(function(id){ if(taskEls[id].busy && ticks[id]) next[id]=ticks[id]; });
+    ticks = next; applyTasks(); resolveNames();
+  }, function(err){
+    setSync("ro", "Live updates stopped. Reload the page to reconnect.");
+  });
+}
+
+/* ---- boot ---- */
+buildTasks();
+setSeg("f-status","status"); setSeg("f-role","role");
+renderCountdown(); renderTimeline(); renderCalls(); applyTasks();
+setInterval(function(){ renderCountdown(); }, 60000);
+connect().catch(function(){ setSync("ro","Shared ticks couldn’t load. Reload the page to try again."); });
+})();
+</script>
+
+</body>
+</html>
