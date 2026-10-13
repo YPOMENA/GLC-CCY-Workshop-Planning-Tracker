@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>CCW Y Workshop Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -241,15 +236,81 @@ details.note[open] summary .tog::after{content:"Hide"} details.note:not([open]) 
 .empty{padding:1.2rem 0;color:var(--muted);font-size:.9rem}
 .msg{font-size:.84rem;color:var(--warn);min-height:1.2em}
 
+/* session outline */
+.phase-strip{list-style:none;margin:2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.phase-strip li{background:var(--surface);padding:1.1rem 1.2rem 1.2rem;display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.phase-strip .d{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.phase-strip h3{font-family:var(--serif);font-weight:400;font-size:2rem;letter-spacing:0;line-height:1;margin-top:.2rem}
+.phase-strip .ps{font-size:.8rem;font-weight:700;color:var(--gold-ink)}
+.phase-strip p{font-size:.88rem;color:var(--ink-2)}
+.callout{margin-top:1.6rem;border:1px solid var(--line-2);border-radius:12px;padding:1.1rem 1.3rem 1.2rem;background:var(--paper-2)}
+.callout h3{font-size:1.02rem;margin-bottom:.55rem}
+.callout ul,.callout ol{margin:0;padding-left:1.2rem;display:grid;gap:.35rem;font-size:.92rem;color:var(--ink-2);max-width:92ch}
+.callout b{color:var(--ink)}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout.q{border-color:var(--gold);background:var(--gold-soft)}
+.callout.q ol li::marker{color:var(--gold-ink);font-weight:700}
+.legend-row{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .6rem;margin-top:1.6rem;font-size:.8rem;color:var(--muted)}
+.legend-row span:not(.chip):not(.cc){margin-right:.9rem}
+.cc{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:700;letter-spacing:.03em;padding:.16rem .5rem .16rem .4rem;border-radius:4px;background:var(--gold-soft);color:var(--gold-ink);white-space:nowrap}
+.cc .hat{width:13px;height:13px;fill:currentColor;flex:none}
+.chip.flex{background:transparent;border:1px dashed var(--muted);color:var(--muted);padding:.12rem .45rem}
+.days{display:grid;gap:2.2rem;margin-top:1.8rem}
+.day-h{display:flex;justify-content:space-between;align-items:baseline;gap:.4rem 1rem;flex-wrap:wrap;padding-bottom:.6rem;border-bottom:2px solid var(--navy)}
+:root[data-theme="dark"] .day-h{border-bottom-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .day-h{border-bottom-color:var(--gold)}}
+.day-h h3{font-size:1.25rem}
+.day-h .sm{font-size:.82rem;color:var(--muted)}
+.ros{list-style:none;margin:0;padding:0}
+.ros .row{display:grid;grid-template-columns:7.2rem minmax(0,1fr) 3rem;gap:.3rem 1rem;padding:.8rem 0;border-bottom:1px solid var(--line);align-items:baseline}
+.ros .t{font-size:.84rem;font-weight:700;color:var(--ink-2)}
+.ros .dur{font-size:.8rem;color:var(--muted);text-align:right}
+.ros .body{display:flex;flex-direction:column;gap:.25rem;min-width:0}
+.ros .st{font-weight:700;line-height:1.3}
+.ros .sd{font-size:.88rem;color:var(--ink-2);max-width:78ch}
+.ros .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.25rem}
+.ros .gap{background:var(--paper);border-bottom-color:var(--paper);padding-inline:.7rem;margin-block:.15rem;border-radius:8px;grid-template-columns:6.5rem minmax(0,1fr)}
+.ros .gap .t{color:var(--muted);font-weight:600}
+.ros .gap .g{font-size:.86rem;color:var(--muted)}
+.ros .gap .g b{color:var(--ink-2)}
+.ros .ph{margin-top:1rem;border-bottom:1px solid var(--line-2);padding-bottom:.55rem}
+.ros .ph .pn{font-size:.92rem;color:var(--ink-2)}
+.ros .ph .pn b{font-family:var(--serif);font-weight:400;font-size:1.55rem;color:var(--ink);letter-spacing:0;margin-right:.15rem}
+.ros .ph .pd{display:block;font-size:.82rem;color:var(--muted);margin-top:.15rem}
+.ros .ph .t{color:var(--gold-ink)}
+.ros .flex .st{color:var(--ink-2)}
+@media (max-width:640px){.ros .row,.ros .gap{grid-template-columns:minmax(0,1fr) auto}.ros .row .body,.ros .row .pn{grid-column:1 / -1;grid-row:2}.ros .gap .g{grid-column:1 / -1}}
+.sub-h{margin-top:2.6rem;margin-bottom:.9rem}
+.sub-h h3{font-size:1.3rem}
+.sub-h p{margin-top:.4rem;color:var(--ink-2);font-size:.92rem;max-width:80ch}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tbl{width:100%;border-collapse:collapse;font-size:.88rem;min-width:560px}
+.tbl th{text-align:left;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:.7rem .9rem;border-bottom:1px solid var(--line-2);background:var(--paper-2)}
+.tbl td{padding:.65rem .9rem;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td b{color:var(--ink);font-weight:600}
+.tbl .n{color:var(--gold-ink);font-weight:700;width:2.5rem}
+.tbl .r{text-align:right;white-space:nowrap}
+.tbl.cuts{min-width:0}
+.tbl .tot td{background:var(--paper-2)}
+.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.agrid>div{background:var(--surface);padding:1rem 1.2rem 1.1rem;min-width:0}
+.agrid h4{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+.agrid p{font-size:.9rem;color:var(--ink-2)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:0 2.4rem}
+.two>div{min-width:0}
+.stack{display:flex;flex-direction:column}
+.plain{margin:0;padding-left:1.15rem;display:grid;gap:.3rem;font-size:.9rem;color:var(--ink-2)}
+.body-p{font-size:.9rem;color:var(--ink-2);max-width:70ch}
+
 footer{background:var(--navy);color:#fff}
 footer .wrap{padding-block:clamp(36px,5vw,56px);display:flex;justify-content:space-between;gap:1.6rem 2rem;flex-wrap:wrap;align-items:flex-end}
 footer .small{font-size:.78rem;color:rgba(255,255,255,.66);max-width:56ch;line-height:1.6}
 footer .small b{color:rgba(255,255,255,.92)}
 </style>
 
-</head>
-<body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hard-hat" viewBox="0 0 16 16"><path d="M3 11.2a5 5 0 0 1 3.4-4.75V5.2c0-.4.3-.7.7-.7h1.8c.4 0 .7.3.7.7v1.25A5 5 0 0 1 13 11.2z"/><rect x="1.2" y="11.6" width="13.6" height="1.9" rx=".95"/></symbol>
   <symbol id="tri-field" viewBox="0 0 600 600">
     <g fill="currentColor">
       <polygon points="300,40 180,250 420,250"/><polygon points="180,250 60,460 300,460"/>
@@ -264,6 +325,7 @@ footer .small b{color:rgba(255,255,255,.92)}
     <div class="links">
       <a href="#road">Road to GLC</a>
       <a href="#calls">Calls</a>
+      <a href="#outline">Outline</a>
       <a href="#resources">Resources</a>
       <a href="#notes">Notes</a>
       <a href="#tasks">Tasks</a>
@@ -297,8 +359,8 @@ footer .small b{color:rgba(255,255,255,.92)}
       </div>
       <div class="cd">
         <span class="lbl">Next team call</span>
-        <span class="big" id="cd-call">Mon 12 Oct · 15:00 UK</span>
-        <span class="meta" id="cd-call-rel">Running through content</span>
+        <span class="big" id="cd-call">Mon 19 Oct · 15:00 UK</span>
+        <span class="meta" id="cd-call-rel">Outline review</span>
         <a class="btn gold" href="https://ypo.zoom.us/j/95910321865?jst=1" target="_blank" rel="noopener">Join on Zoom ↗</a>
       </div>
     </div>
@@ -333,7 +395,160 @@ footer .small b{color:rgba(255,255,255,.92)}
   </div>
 </section>
 
-<section class="band" id="resources">
+<section class="band" id="outline">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <div class="eyebrow">Draft for review on 19 Oct</div>
+        <h2 class="sec-h">Session outline: GLC Bangkok</h2>
+        <p class="lede">Monday 15 and Tuesday 16 March 2027, on the construction theme. Built from the Bangkok WAAG timings, the CCY overview sheet, last year’s Chicago decks and our last two calls. Topics are woven across the phases, and anything that maps to a Chapter Commitment carries the hard-hat badge.</p>
+      </div>
+    </div>
+
+    <ol class="phase-strip">
+      <li><span class="d tnum">Day 1 · 10:15–12:30</span><h3>Foundation</h3><p class="ps">Vision &amp; Groundwork</p><p>The role, culture and values, the building code, vision and Game Plan.</p></li>
+      <li><span class="d tnum">Day 1 · 13:30–15:15</span><h3>Framework</h3><p class="ps">Structure &amp; Systems</p><p>Your build team and succession, the Chapter Manager, finances, governance documents.</p></li>
+      <li><span class="d tnum">Day 2 · 08:30–12:30</span><h3>Finishing</h3><p class="ps">Execution, Refinement &amp; Quality Control</p><p>Board accountability, conduct and risk, the Chapter Commitments inspection, membership quality control.</p></li>
+      <li><span class="d tnum">Day 2 · 13:30–15:30</span><h3>Ribbon Cutting</h3><p class="ps">Representation, Celebration &amp; Recognition</p><p>Region and representation, growth and onboarding, peer problem-solving, the Blueprint.</p></li>
+    </ol>
+
+    <div class="callout">
+      <h3>Timing: 9h30 on the schedule, plan for 8</h3>
+      <ul>
+        <li>The labelled workshop blocks on WAAG draft 2 add up to 9h30. The WAAG asks us to plan for 8 hours, so the outline fills 9h30 and the list further down shows where 90 minutes comes out.</li>
+        <li>Day 1 15:45–17:15 is unlabelled on draft 2 and blank on the 30 Sep WAAG, so it isn’t counted. Nerissa: LabX is part of GLC but not midday. Is that where it goes?</li>
+        <li>Draft 2 labels blocks that run 1h45 as “1.35 hours”, and 10:15–12:30 as 2 hours. The outline uses the clock times.</li>
+      </ul>
+    </div>
+
+    <div class="legend-row">
+      <span class="cc"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>3 Strategic Plan</span><span>Maps to Chapter Commitment 3. Proposed as the slide icon too.</span>
+      <span class="chip now">Table activity</span><span>Activity type</span>
+      <span class="chip ok">New</span><span>Fresh for this year</span>
+      <span class="chip flex">Flex</span><span>First to go if time is cut</span>
+    </div>
+
+    <div class="days">
+<div class="day"><div class="day-h"><h3>Day 1 · Monday 15 March 2027</h3><span class="sm">Seated by chapter size</span></div><ol class="ros">
+<li class="row gap"><span class="t tnum">09:00–09:45</span><span class="g"><b>Opening plenary</b> · GLC programme</span></li>
+<li class="row gap"><span class="t tnum">09:45–10:15</span><span class="g"><b>Transition</b> · Room opens. Workbook, name tags and building stickers on the tables.</span></li>
+<li class="row ph ph-f"><span class="t tnum">10:15–12:30</span><span class="pn"><b>Foundation</b> · Vision &amp; Groundwork<span class="pd">Pour the slab: the ground everything stands on.</span></span><span class="dur tnum">2h15</span></li>
+<li class="row sg"><span class="t tnum">10:15–10:20</span><span class="body"><span class="st">Welcome</span><span class="sd">Champions, management partners, regional officers and guests.</span></span><span class="dur tnum">5′</span></li>
+<li class="row sg"><span class="t tnum">10:20–10:40</span><span class="body"><span class="st">Speed Connect</span><span class="sd">Two facing lines, one minute each per prompt, then one line rotates. New prompts for repeat attendees.</span><span class="tags"><span class="chip now">Ice breaker</span><span class="chip ">Keep</span></span></span><span class="dur tnum">20′</span></li>
+<li class="row sg"><span class="t tnum">10:40–10:50</span><span class="body"><span class="st">Why we’re here and how the two days work</span><span class="sd">Shared knowledge, tools, your plan and the CC community. The four phases; workbook, Blueprint and hyperlinked resource slides; the Commitment icon; WhatsApp, parking lot and Navigating the Challenges; rules of engagement.</span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">10:50–11:00</span><span class="body"><span class="st">One word, one obstacle, one sentence</span><span class="sd">“If I’ve done my job well, members will finish the year feeling…” Pair share in 45 seconds, no backstory. Workbook F1.</span><span class="tags"><span class="chip now">Reflection</span></span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">11:00–11:10</span><span class="body"><span class="st">The Chapter Chair role</span><span class="sd">An inch deep and a mile wide: strategy and vision, leading, operations and finances, representing, risk and governance. The Chapter Chair roadmap.</span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">11:10–11:20</span><span class="body"><span class="st">Chapter Commitments: the building code</span><span class="sd">What they are and who wrote them (regional chairs through the CRC, not management). This is what doing the job well looks like. Introduce the icon, and note that this workshop counts towards commitment 6.</span><span class="tags"><span class="cc"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>All 14</span></span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">11:20–11:50</span><span class="body"><span class="st">Community Standards, part 1</span><span class="sd">Culture is set from the top: guiding principles, GRIT, safe haven and the Chair’s responsibilities, with the Community Standards video. Culture mapping at tables (behaviours that build or erode trust, on flipcharts), then one habit you’d stop next year (F2).</span><span class="tags"><span class="chip now">Table activity</span><span class="chip now">Reflection</span></span></span><span class="dur tnum">30′</span></li>
+<li class="row sg"><span class="t tnum">11:50–12:20</span><span class="body"><span class="st">Vision and your strategic plan</span><span class="sd">Chapter identity at tables: what makes your chapter unique, and what experience are you creating? (F3). Game Plan: what it is, the methodology, the types and when to book. The Bangkok cohort should book now.</span><span class="tags"><span class="chip now">Table activity</span><span class="cc" title="Strategic Plan"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>3 Strategic Plan</span></span></span><span class="dur tnum">30′</span></li>
+<li class="row sg"><span class="t tnum">12:20–12:25</span><span class="body"><span class="st">Building State stickers</span><span class="sd">Pick the building that feels most like your chapter today and wear it to lunch.</span><span class="tags"><span class="chip now">Energizer</span><span class="chip ">Keep</span></span></span><span class="dur tnum">5′</span></li>
+<li class="row sg"><span class="t tnum">12:25–12:30</span><span class="body"><span class="st">Foundation wrap</span><span class="sd">Workbook to-dos.</span></span><span class="dur tnum">5′</span></li>
+<li class="row gap"><span class="t tnum">12:30–13:30</span><span class="g"><b>Lunch</b> · Conversation starter: ask about each other’s building.</span></li>
+<li class="row ph ph-fw"><span class="t tnum">13:30–15:15</span><span class="pn"><b>Framework</b> · Structure &amp; Systems<span class="pd">Raise the frame: who holds up what.</span></span><span class="dur tnum">1h45</span></li>
+<li class="row sg"><span class="t tnum">13:30–13:40</span><span class="body"><span class="st">Cup Tower Challenge</span><span class="sd">Tables stack cups using a rubber band and strings, no hands. Replaces rock-paper-scissors. One-line debrief: a board that pulls together builds faster.</span><span class="tags"><span class="chip now">Energizer</span><span class="chip ok">New</span></span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">13:40–14:05</span><span class="body"><span class="st">Your build team</span><span class="sd">Core and required officers, officer-elects named before 1 Nov, officers trained before their term, and the succession ladder. Then “Who signs off?”: tables match the 14 commitments to the officer who owns each.</span><span class="tags"><span class="chip now">Table activity</span><span class="cc" title="Officer-Elect ID"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>5 Officer-Elect ID</span><span class="cc" title="Officers Trained"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>6 Officers Trained</span><span class="cc" title="Learning Calendar"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>9 Learning Calendar</span><span class="cc" title="Forum Data"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>10 Forum Data</span><span class="cc" title="Trained Moderators"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>11 Trained Moderators</span><span class="cc" title="Membership Data"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>13 Membership Data</span></span></span><span class="dur tnum">25′</span></li>
+<li class="row sg"><span class="t tnum">14:05–14:20</span><span class="body"><span class="st">Your Chapter Manager</span><span class="sd">The relationship, the CM video and tips, development and contract review, CMW attendance.</span><span class="tags"><span class="cc" title="CMW Attendance"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>8 CMW Attendance</span></span></span><span class="dur tnum">15′</span></li>
+<li class="row sg"><span class="t tnum">14:20–14:45</span><span class="body"><span class="st">Chapter finances</span><span class="sd">Budget allocation: on your own, then agree as a table, then reveal YPO’s suggested ranges. Fund your priorities; reserves and dues.</span><span class="tags"><span class="chip now">Table activity</span></span></span><span class="dur tnum">25′</span></li>
+<li class="row sg"><span class="t tnum">14:45–15:05</span><span class="body"><span class="st">Governance documents</span><span class="sd">The Chapter Charter (formation documents, acknowledged by the Chair each year). Bylaws vs policies and procedures, which YPO splits into operations and governance manuals.</span><span class="tags"><span class="cc" title="Chapter Charter"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>1 Chapter Charter</span><span class="cc" title="Chapter Bylaws"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>2 Chapter Bylaws</span></span></span><span class="dur tnum">20′</span></li>
+<li class="row sg"><span class="t tnum">15:05–15:15</span><span class="body"><span class="st">Framework wrap and Day 1 close</span><span class="sd">Workbook to-dos, parking lot sweep, check-in QR, evening logistics.</span></span><span class="dur tnum">10′</span></li>
+<li class="row gap"><span class="t tnum">15:15–15:45</span><span class="g"><b>Networking break</b></span></li>
+<li class="row gap"><span class="t tnum">15:45–17:15</span><span class="g"><b>Unlabelled on WAAG draft 2</b> · Not counted. Checking with Nerissa whether this block is ours.</span></li>
+</ol></div>
+<div class="day"><div class="day-h"><h3>Day 2 · Tuesday 16 March 2027</h3><span class="sm">Seated by region</span></div><ol class="ros">
+<li class="row ph ph-fn"><span class="t tnum">08:30–10:15</span><span class="pn"><b>Finishing, part 1</b> · Execution, Refinement &amp; Quality Control<span class="pd">Run what you’ve built, then inspect it.</span></span><span class="dur tnum">1h45</span></li>
+<li class="row sg"><span class="t tnum">08:30–08:45</span><span class="body"><span class="st">Site Line-Up</span><span class="sd">Stand along a line from “still reading the blueprint” to “ready to pour concrete” for statements such as “I know who my successor is” or “I know my chapter’s commitments status”. Replaces “stand up if”; there’s a seated version if the room is tight.</span><span class="tags"><span class="chip now">Energizer</span><span class="chip ok">New</span></span></span><span class="dur tnum">15′</span></li>
+<li class="row sg"><span class="t tnum">08:45–08:50</span><span class="body"><span class="st">Day 1 recap</span><span class="sd">Finishing: you’ve built it, now run it.</span></span><span class="dur tnum">5′</span></li>
+<li class="row sg"><span class="t tnum">08:50–09:15</span><span class="body"><span class="st">Board performance and accountability</span><span class="sd">Best vs worst board meeting at tables (before, during, after). E-CODE your board meetings. Handling non-performance: expectations, awareness, reaffirm, resources, an out, action.</span><span class="tags"><span class="chip now">Table activity</span></span></span><span class="dur tnum">25′</span></li>
+<li class="row sg"><span class="t tnum">09:15–09:35</span><span class="body"><span class="st">Community Standards, part 2: conduct</span><span class="sd">The Chapter Conduct Committee (minimum 3, YPO recommends 5, avoid same-forum members, record it every year). Ethicspoint for members, spouses and partners, and management. Conduct data from YPO (to confirm). Not acting sets your culture.</span><span class="tags"><span class="cc" title="Conduct Committee"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>4 Conduct Committee</span></span></span><span class="dur tnum">20′</span></li>
+<li class="row sg"><span class="t tnum">09:35–10:00</span><span class="body"><span class="st">Case study rotation</span><span class="sd">One case per table from three: conduct (Global or chapter, and what do you do?), a board member who isn’t delivering, a strained Chapter Manager relationship. Tables discuss and report out; Champions capture on flipcharts.</span><span class="tags"><span class="chip now">Case study</span></span></span><span class="dur tnum">25′</span></li>
+<li class="row sg"><span class="t tnum">10:00–10:10</span><span class="body"><span class="st">Risk and protection</span><span class="sd">D&amp;O insurance, liability waivers, cover for the chapter and the CM. A quick score on the Chapter Risk Assessment, with the link to finish later.</span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">10:10–10:15</span><span class="body"><span class="st">Wrap</span><span class="sd">Workbook.</span></span><span class="dur tnum">5′</span></li>
+<li class="row gap"><span class="t tnum">10:15–10:45</span><span class="g"><b>Networking break</b></span></li>
+<li class="row ph ph-fn"><span class="t tnum">10:45–12:30</span><span class="pn"><b>Finishing, part 2</b> · The inspection: Chapter Commitments<span class="pd">Run what you’ve built, then inspect it.</span></span><span class="dur tnum">1h45</span></li>
+<li class="row sg"><span class="t tnum">10:45–11:00</span><span class="body"><span class="st">Why Chapter Commitments matter</span><span class="sd">Guests (to confirm; the Champions set the tone first), who built the commitments, and current status data.</span><span class="tags"><span class="cc"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>All 14</span></span></span><span class="dur tnum">15′</span></li>
+<li class="row sg"><span class="t tnum">11:00–11:30</span><span class="body"><span class="st">The 14, one by one</span><span class="sd">What, when, who and where for each. “You’ve seen this one already.” Concerns are captured live and routed to the Navigating the Challenges tables.</span><span class="tags"><span class="cc"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>All 14</span></span></span><span class="dur tnum">30′</span></li>
+<li class="row sg"><span class="t tnum">11:30–11:40</span><span class="body"><span class="st">Site inspection: your chapter’s data</span><span class="sd">Using the pre-read, traffic-light your 14 and circle the reds in the workbook.</span><span class="tags"><span class="chip now">Reflection</span></span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">11:40–12:00</span><span class="body"><span class="st">Membership quality control</span><span class="sd">New member criteria and qualifying roles (a year in), waivers, Grace, minimum membership (16 or 21), roster and dues verification.</span><span class="tags"><span class="cc" title="Membership Data"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>13 Membership Data</span><span class="cc" title="Minimum Membership"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>14 Minimum Membership</span></span></span><span class="dur tnum">20′</span></li>
+<li class="row sg flex"><span class="t tnum">12:00–12:15</span><span class="body"><span class="st">Resource-finding challenge</span><span class="sd">Tables race to find real items in Connect and the Chapter Management Hub. The tutorial videos go in the after-read.</span><span class="tags"><span class="chip now">Table activity</span><span class="chip flex">Flex</span></span></span><span class="dur tnum">15′</span></li>
+<li class="row sg"><span class="t tnum">12:15–12:25</span><span class="body"><span class="st">Building State revisit</span><span class="sd">Pair with someone who shares your building: “1.5 days in, the thing I’m still most concerned about is…” 30 seconds each, then a 2.5-minute joint brainstorm.</span><span class="tags"><span class="chip now">Energizer</span><span class="chip ">Keep</span></span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">12:25–12:30</span><span class="body"><span class="st">Finishing wrap</span><span class="sd">Workbook.</span></span><span class="dur tnum">5′</span></li>
+<li class="row gap"><span class="t tnum">12:30–13:30</span><span class="g"><b>Lunch</b></span></li>
+<li class="row ph ph-rc"><span class="t tnum">13:30–15:30</span><span class="pn"><b>Ribbon Cutting</b> · Representation, Celebration &amp; Recognition<span class="pd">Open the doors and celebrate.</span></span><span class="dur tnum">2h</span></li>
+<li class="row sg"><span class="t tnum">13:30–13:40</span><span class="body"><span class="st">Delcie’s post-lunch favourite</span><span class="sd">Last year’s most popular energizer. Details on 19 Oct.</span><span class="tags"><span class="chip now">Energizer</span><span class="chip ">Keep</span></span></span><span class="dur tnum">10′</span></li>
+<li class="row sg"><span class="t tnum">13:40–14:00</span><span class="body"><span class="st">Represent your chapter</span><span class="sd">The region’s role, YPO structure, REX vs Regional Board, your Regional Chair, Area Officer and RD. Be the mayor: communications and your chapter ethos. “Who do I call when…?” scenario cards at tables.</span><span class="tags"><span class="chip now">Table activity</span><span class="cc" title="RBM Attendance"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>7 RBM Attendance</span></span></span><span class="dur tnum">20′</span></li>
+<li class="row sg"><span class="t tnum">14:00–14:20</span><span class="body"><span class="st">Opening the doors: growth and onboarding</span><span class="sd">Strategic Membership Pathways (now set by region), the future member profile, Apeiron as an expectation at joining, forum training in the first six months, and integration as an option with its pros and cons.</span><span class="tags"><span class="cc" title="Forum Training"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>12 Forum Training</span></span></span><span class="dur tnum">20′</span></li>
+<li class="row sg"><span class="t tnum">14:20–14:45</span><span class="body"><span class="st">Navigating the Challenges</span><span class="sd">Tables from the pre-workshop survey, commitment concerns and the parking lot. One note-taker per table posts into Mentimeter by QR; the wall is live and each table shares its best idea in 30 seconds. The export goes to everyone afterwards.</span><span class="tags"><span class="chip now">NTC</span></span></span><span class="dur tnum">25′</span></li>
+<li class="row sg"><span class="t tnum">14:45–15:10</span><span class="body"><span class="st">Blueprint</span><span class="sd">Pick three priorities from the workbook, with actions, owners and 30-60-90 days, then a partner peer review. “At the end of my year, people will say I was the Chair who…”</span><span class="tags"><span class="chip now">Reflection</span><span class="cc" title="Strategic Plan"><svg class="hat" viewBox="0 0 16 16" aria-hidden="true"><use href="#hard-hat"/></svg>3 Strategic Plan</span></span></span><span class="dur tnum">25′</span></li>
+<li class="row sg"><span class="t tnum">15:10–15:25</span><span class="body"><span class="st">Closing circle</span><span class="sd">One word each. Optional ribbon and scissors group photo. Evaluation QR.</span></span><span class="dur tnum">15′</span></li>
+<li class="row sg"><span class="t tnum">15:25–15:30</span><span class="body"><span class="st">Clear your station</span><span class="sd">Logistics.</span></span><span class="dur tnum">5′</span></li>
+<li class="row gap"><span class="t tnum">15:30–16:00</span><span class="g"><b>Networking break</b></span></li>
+<li class="row gap"><span class="t tnum">16:00–17:00</span><span class="g"><b>Closing plenary</b> · GLC programme</span></li>
+</ol></div>
+    </div>
+
+    <div class="sub-h" id="commitments"><h3>Chapter Commitments map</h3><p>Where each of the 14 lands. <b>Woven</b>: taught in a topic last year and here. <b>Added</b>: only on the deep-dive slide last year, now has a home. <b>Gap</b>: no teaching content beyond the deep dive and the ownership match. All 14 are also introduced in Foundation and walked through in the Finishing deep dive.</p></div>
+    <div class="tscroll"><table class="tbl cc-tbl"><thead><tr><th>#</th><th>Commitment</th><th>Owner</th><th>Where it lands</th><th>Status</th></tr></thead><tbody><tr><td class="tnum n">1</td><td><b>Chapter Charter</b></td><td>Chapter Chair</td><td>Framework · Governance documents</td><td><span class="chip hot">Added</span></td></tr><tr><td class="tnum n">2</td><td><b>Chapter Bylaws</b></td><td>CC; CM uploads</td><td>Framework · Governance documents</td><td><span class="chip ok">Woven</span></td></tr><tr><td class="tnum n">3</td><td><b>Chapter Strategic Plan</b></td><td>CC; CM uploads</td><td>Foundation · Vision &amp; Game Plan; Ribbon Cutting · Blueprint</td><td><span class="chip ok">Woven</span></td></tr><tr><td class="tnum n">4</td><td><b>Chapter Conduct Committee</b></td><td>CC, CM</td><td>Finishing · Community Standards part 2 and the conduct case</td><td><span class="chip ok">Woven</span></td></tr><tr><td class="tnum n">5</td><td><b>Core Officer-Elect Identification (before 1 Nov)</b></td><td>CC, CC-elect, CM</td><td>Framework · Your build team</td><td><span class="chip ok">Woven</span></td></tr><tr><td class="tnum n">6</td><td><b>Current Core Officers Trained</b></td><td>CC, CC-elect, CM</td><td>Foundation (this workshop counts); Framework · Your build team</td><td><span class="chip ok">Woven</span></td></tr><tr><td class="tnum n">7</td><td><b>Chapter RBM Attendance</b></td><td>CC-elect, CM</td><td>Ribbon Cutting · Represent your chapter</td><td><span class="chip ok">Woven</span></td></tr><tr><td class="tnum n">8</td><td><b>Chapter Manager CMW Attendance</b></td><td>CC supports; CM</td><td>Framework · Your Chapter Manager</td><td><span class="chip hot">Added</span></td></tr><tr><td class="tnum n">9</td><td><b>Learning Calendar (4+ events by 1 Oct)</b></td><td>Learning Officer, CM</td><td>Framework · ownership match only</td><td><span class="chip warn">Gap</span></td></tr><tr><td class="tnum n">10</td><td><b>Forum Data</b></td><td>Forum Officer, CM</td><td>Framework · ownership match only</td><td><span class="chip warn">Gap</span></td></tr><tr><td class="tnum n">11</td><td><b>Trained Forum Moderators</b></td><td>Forum Officer, CM</td><td>Framework · ownership match only</td><td><span class="chip warn">Gap</span></td></tr><tr><td class="tnum n">12</td><td><b>Forum Training (first six months)</b></td><td>Forum Officer, CM</td><td>Ribbon Cutting · Opening the doors</td><td><span class="chip hot">Added</span></td></tr><tr><td class="tnum n">13</td><td><b>Chapter Membership Data</b></td><td>Membership Officer, CM</td><td>Finishing · Membership quality control</td><td><span class="chip hot">Added</span></td></tr><tr><td class="tnum n">14</td><td><b>Minimum Membership (16 or 21)</b></td><td>MO, CC, CM</td><td>Finishing · Membership quality control</td><td><span class="chip hot">Added</span></td></tr></tbody></table></div>
+
+    <div class="callout warn">
+      <h3>Commitments the content doesn’t cover</h3>
+      <ul>
+        <li>In last year’s deck and the CCY overview, seven commitments only appeared on the deep-dive slide: Charter, Learning Calendar, Forum Data, Trained Moderators, Forum Training, Membership Data and Minimum Membership. CMW attendance was only implied (“encourage training”).</li>
+        <li>This outline gives homes to Charter, CMW, Forum Training, Membership Data and Minimum Membership.</li>
+        <li><b>Still without teaching content: Learning Calendar (9), Forum Data (10) and Trained Forum Moderators (11).</b> The Learning and Forum Officers own them and the Chair owns the follow-up. Options: a Forum &amp; Learning commitments table at Navigating the Challenges (Chicago had one), plus a slide in Your build team on “your officers own these, you own the follow-up”.</li>
+        <li>Confirm the current list and measurement dates with Chapters &amp; Regions before the deck is built. The detail here comes from the Chicago FY26 slides.</li>
+      </ul>
+    </div>
+
+    <div class="sub-h"><h3>CCY overview modules: where they sit</h3><p>Every module from the CCY planning sheet has a place in the four phases.</p></div>
+    <div class="tscroll"><table class="tbl"><thead><tr><th>CCY overview module</th><th>Where it sits</th></tr></thead><tbody><tr><td><b>Role Overview</b></td><td>Foundation (role, culture mapping) · Framework (governance documents) · Finishing (conduct, case studies, risk)</td></tr><tr><td><b>Operations, Finance &amp; Chapter Health</b></td><td>Framework (board, Chapter Manager, finances) · Finishing (site inspection of chapter data)</td></tr><tr><td><b>Represent your Chapter</b></td><td>Ribbon Cutting</td></tr><tr><td><b>Membership Strategy &amp; Chapter Growth</b></td><td>Finishing (quality control) · Ribbon Cutting (growth, future member profile)</td></tr><tr><td><b>Tools &amp; Resources</b></td><td>Hyperlinked slides throughout · Finishing resource challenge (flex) · post-workshop index</td></tr><tr><td><b>Navigating the Challenges</b></td><td>Ribbon Cutting (Day 1 too if the late block is ours)</td></tr><tr><td><b>Community Standards (part 2)</b></td><td>Finishing</td></tr><tr><td><b>Integration Models &amp; Chapter Evolution</b></td><td>Ribbon Cutting (brief) and a Navigating the Challenges table</td></tr><tr><td><b>Onboarding &amp; Member Experience Design</b></td><td>Ribbon Cutting · Opening the doors</td></tr><tr><td><b>Design Your Chapter: Strategic Planning</b></td><td>Foundation · Vision and your strategic plan</td></tr><tr><td><b>Member panel / Chair success stories</b></td><td>Not scheduled, as we agreed to keep guests minimal. The Champions’ own stories instead, or the Day 1 late block</td></tr><tr><td><b>Strategic Planning (lab, peer review, 30-60-90)</b></td><td>Ribbon Cutting · Blueprint</td></tr></tbody></table></div>
+
+    <div class="sub-h"><h3>Activities at a glance</h3></div>
+    <div class="agrid">
+      <div><h4>Ice breakers &amp; energizers</h4><p>Speed Connect (keep) · Building State stickers (keep) · Cup Tower Challenge (new) · Site Line-Up (new) · Delcie’s Day 2 post-lunch favourite (keep) · Closing circle</p></div>
+      <div><h4>Table discussions</h4><p>Culture mapping · Chapter identity · Who signs off? · Budget allocation · Best vs worst board meeting · Who do I call when…? · Building State pairs</p></div>
+      <div><h4>Case studies</h4><p>Conduct: Global or chapter? · A board member who isn’t delivering · A strained Chapter Manager relationship. One case per table.</p></div>
+      <div><h4>Navigating the Challenges</h4><p>Day 2 afternoon with Mentimeter. Suggested tables: Chapter Commitments · Forum &amp; Learning commitments · Chapter Manager · Risk, insurance &amp; waivers · Integration · Succession &amp; board · Member engagement · Game Plan &amp; goals.</p></div>
+      <div><h4>Reflections</h4><p>One word, one obstacle, one sentence · One habit to stop · Site inspection · Blueprint</p></div>
+      <div><h4>Materials to budget for</h4><p>Cups, rubber bands and string · Building stickers and posters · Ribbon and scissors · Flipcharts. Budget requests are due Nov–Dec on the RACI.</p></div>
+    </div>
+
+    <div class="two">
+      <div>
+        <div class="sub-h"><h3>If we’re held to 8 hours</h3><p>Where the 90 minutes comes from. The exact cut depends on where the time is taken out.</p></div>
+        <div class="tscroll"><table class="tbl cuts"><thead><tr><th>Cut</th><th class="r">Saves</th></tr></thead><tbody><tr><td>Resource-finding challenge → post-workshop index and Connect videos</td><td class="r tnum">15′</td></tr><tr><td>Building State revisit → folded into Navigating the Challenges</td><td class="r tnum">10′</td></tr><tr><td>Chapter identity exercise, 30 → 20</td><td class="r tnum">10′</td></tr><tr><td>Commitments one by one, 30 → 20 (the icon has already done much of the work)</td><td class="r tnum">10′</td></tr><tr><td>Membership quality control, 20 → 10, with the detail in the after-read</td><td class="r tnum">10′</td></tr><tr><td>Speed Connect, 20 → 15</td><td class="r tnum">5′</td></tr><tr><td>Site Line-Up, 15 → 10</td><td class="r tnum">5′</td></tr><tr><td>Case study rotation: two cases and a shorter report-out</td><td class="r tnum">5′</td></tr><tr><td>Represent your chapter, 20 → 15</td><td class="r tnum">5′</td></tr><tr><td>Opening the doors, 20 → 15</td><td class="r tnum">5′</td></tr><tr><td>Closing circle, 15 → 10</td><td class="r tnum">5′</td></tr><tr><td>Framework wrap, 10 → 5</td><td class="r tnum">5′</td></tr><tr class="tot"><td><b>Total</b></td><td class="r tnum"><b>90′</b></td></tr></tbody></table></div>
+      </div>
+      <div class="stack">
+        <div><div class="sub-h"><h3>If the Day 1 late block is ours</h3></div>
+          <ul class="plain"><li>Navigating the Challenges, Day 1 (30′)</li><li>Membership growth peer exchange and future member profile (20′)</li><li>Integration opportunity and risk case (20′)</li><li>Chair success stories from the Champions (20′)</li></ul></div>
+        <div><div class="sub-h"><h3>San Diego</h3></div>
+          <p class="body-p">The same 9h30 in a different shape. Day 1 is one afternoon block, 14:00–17:45 with no break shown, and Day 2 afternoon runs 13:30–15:45. The running order holds: Foundation and Framework run back to back on Day 1, with the energizer as a mid-block reset, 15 minutes off Day 1 and 15 more on Day 2 afternoon.</p></div>
+      </div>
+    </div>
+
+    <div class="sub-h"><h3>Before, during and after</h3></div>
+    <div class="agrid three">
+      <div><h4>Before</h4><p>Pre-workshop survey (concerns, confidence, anticipated challenge) sets the table topics and the cases. Chapter Commitments data pre-read, reviewed with the CM and outgoing chair and used in the site inspection. A nudge for the Bangkok cohort to book a Game Plan.</p></div>
+      <div><h4>In the room</h4><p>MarCom workbook with sections F, FW, FN and RC plus the Blueprint, numbered to the slides. The Commitment icon. Hyperlinked resource slides. WhatsApp group, parking lot and Mentimeter QR.</p></div>
+      <div><h4>After</h4><p>Mentimeter export of best practices. Hyperlinked resource index and follow-up PDF. Connect tutorial videos and the Chapter Risk Assessment link. A 30-day Blueprint nudge (suggestion).</p></div>
+    </div>
+
+    <div class="callout q">
+      <h3>Questions for 19 Oct</h3>
+      <ol>
+        <li><b>Phase names.</b> The outline uses Chicago’s Foundation · Framework · Finishing · Ribbon Cutting. Our 5 Oct notes recorded Foundation · Design &amp; Execution · Building · Ribbon Cutting. Which set do we use?</li>
+        <li><b>Time.</b> 8 hours or 9h30? Is Day 1 15:45–17:15 ours, and where does LabX sit? (Nerissa)</li>
+        <li><b>Membership</b> is split between Finishing (quality control) and Ribbon Cutting (growth and onboarding). Does that work?</li>
+        <li><b>Forum and Learning commitments.</b> Is the ownership match plus a table enough, or do they need a short segment?</li>
+        <li><b>Guests.</b> Who joins the Chapter Commitments segment, and will the Global Board visit the room?</li>
+        <li><b>Energizers.</b> Happy with Cup Tower and Site Line-Up? Delcie to share the Day 2 post-lunch favourite.</li>
+        <li><b>Conduct data from YPO.</b> Who’s chasing it?</li>
+        <li><b>Owners still to agree:</b> pre-workshop survey, index and follow-up PDF, case study selection, Chapter Commitments pre-read pack, Chapter Commitments guests.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="band paper" id="resources">
   <div class="wrap">
     <div class="eyebrow">Links</div>
     <h2 class="sec-h">Resources &amp; presentations</h2>
@@ -373,8 +588,9 @@ footer .small b{color:rgba(255,255,255,.92)}
       <div class="rgroup">
         <h3>Presentations</h3>
         <ul class="rlist">
+          <li><a href="#outline"><span class="ft">Draft</span><span><span class="rt">Session outline, draft for 19 Oct</span><span class="rd">Run of show, activities and the Chapter Commitments map, on this page</span></span><span class="arw">↓</span></a></li>
           <li><div class="soon"><span class="ft">Deck</span><span><span class="rt">CCW Y 2027 workshop deck</span><span class="rd">Built in Canva, the approved tool for GLC workshop presentations</span></span><span class="chip">Coming soon</span></div></li>
-          <li><div class="soon"><span class="ft">Deck</span><span><span class="rt">Last year’s CCW Y deck</span><span class="rd">Delcie walks us through it on 12 Oct</span></span><span class="chip">Coming soon</span></div></li>
+          <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FLearningDepartment%2FShared%20Documents%2FOfficer%20Education%2FOfficer%20Education%20Materials%2FFY25%2D26%2FWorkshop%20Delivery%20Team%20materials%2FWorkshops%2FChapter%20Chair%2DY%2FChicago%20materials" target="_blank" rel="noopener"><span class="ft dir">Folder</span><span><span class="rt">Last year’s CCW Y decks (Chicago)</span><span class="rd">Day One and Day Two decks with speaker notes, plus the Champion Guides. Walked through on 12 Oct.</span></span><span class="arw">↗</span></a></li>
           <li><div class="soon"><span class="ft">Guide</span><span><span class="rt">Leader’s Guide</span><span class="rd">Draft Dec 2026 to Jan 2027</span></span><span class="chip">Coming soon</span></div></li>
           <li><div class="soon"><span class="ft">Guide</span><span><span class="rt">Participant Guide &amp; worksheets</span><span class="rd">Draft Dec 2026 to Jan 2027</span></span><span class="chip">Coming soon</span></div></li>
           <li><div class="soon"><span class="ft">Form</span><span><span class="rt">Pre-workshop survey</span><span class="rd">Biggest concerns, most confident, anticipated challenge</span></span><span class="chip">Coming soon</span></div></li>
@@ -386,13 +602,98 @@ footer .small b{color:rgba(255,255,255,.92)}
   </div>
 </section>
 
-<section class="band paper" id="notes">
+<section class="band" id="notes">
   <div class="wrap">
     <div class="eyebrow">After each call</div>
     <h2 class="sec-h">Meeting notes</h2>
     <p class="lede">Decisions, actions and owners from each team call, newest first.</p>
 
     <details class="note" open>
+      <summary>
+        <div><h3>Mon 12 Oct 2026 · Last year’s deck, walked through</h3><span class="sm">Delcie, Elizabeth, Nerissa, Paige · From the Zoom transcript and AI summary. The recording starts at slide 7 of the Day 1 deck.</span></div>
+        <span class="tog"></span>
+      </summary>
+      <div class="nbody">
+        <div class="full"><p class="quote">Construction theme confirmed: Foundation, Framework, Finishing, Ribbon Cutting. Chapter Commitments run through all of it as what doing the job well looks like.</p></div>
+        <div class="full">
+          <h4>Recap</h4>
+          <p class="recap">Delcie walked us through last year’s Chicago deck: all of Day 1, and Day 2 up to the end of Finishing. We keep the construction theme and the four phases, with topics woven across phases rather than taught one at a time. Chapter Commitments run through the whole storyline, flagged on slides with an icon, and come together in a deep dive on Day 2. We agreed to add case studies (conduct and the Chapter Manager relationship first), run Navigating the Challenges through Mentimeter, and refresh some energizers for anyone attending a second time. Paige has mapped the content into a structure for review on 19 Oct: see the <a href="#outline">session outline</a>.</p>
+        </div>
+        <div>
+          <h4>Agreed</h4>
+          <ul>
+            <li>Construction theme and Chicago’s four phases: Foundation · Framework · Finishing · Ribbon Cutting, roughly half a day each.</li>
+            <li>Topics woven across phases (Delcie’s approach) rather than covered one at a time as in the Gold workshop. Paige checks every topic is covered.</li>
+            <li>Chapter Commitments woven through as part of doing the job well, not an extra burden. An icon on any slide that maps to a commitment, then the Day 2 deep dive. Elizabeth: keep repeating the reminder so it sticks.</li>
+            <li>Governance gets clear airtime: bylaws, corporate governance, insurance for the chapter and the Chapter Manager, D&amp;O adherence.</li>
+            <li>Show the Community Standards video. It was skipped in Sydney and shown in Chicago after pushback.</li>
+            <li>Case studies: conduct (“is this Global or chapter, and what are you doing about it?”), board non-performance, the Chapter Manager relationship.</li>
+            <li>Navigating the Challenges: QR codes and Mentimeter, one note-taker per table, notes live on screen, exported and shared with everyone.</li>
+            <li>Keep the scratchpad, as the standard YPO workbook. Nerissa: MarCom is building one per workshop, numbered to match the deck. The Blueprint exercise goes in it.</li>
+            <li>Hyperlink resource slides straight to the documents.</li>
+            <li>Keep Speed Connect (Elizabeth’s favourite) and the Day 2 post-lunch energizer (Delcie: everyone’s favourite). Freshen the rest for repeat attendees.</li>
+            <li>LabX will be part of GLC, but not midday (Nerissa).</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Actions</h4>
+          <ul>
+            <li><b>Paige</b>: send the proposed structure, with topics, subtopics, activities and Chapter Commitments, before 19 Oct. <a class="chip ok" href="#outline">Done: session outline</a></li>
+            <li><b>Paige</b>: update the hub after each Monday call. <span class="chip ok">Done for 12 Oct</span></li>
+            <li><b>Paige</b>: weave Chapter Commitments through, with a slide icon. <a class="chip ok" href="#commitments">In the outline</a></li>
+            <li><b>Paige</b>: add case studies on conduct and the Chapter Manager relationship. <a class="chip ok" href="#outline">In the outline</a></li>
+            <li><b>Paige</b>: set up QR codes and Mentimeter for Navigating the Challenges.</li>
+            <li><b>Delcie</b>: share last year’s structured scratchpad document.</li>
+            <li><b>Nerissa</b>: a standard MarCom workbook for each workshop, numbered to match the deck.</li>
+            <li><b>Nerissa</b>: pull last year’s attendance once registration opens on 1 Nov.</li>
+            <li><b>Owner to agree</b>: conduct-case statistics from YPO, which Delcie requested last year.</li>
+            <li><b>Team</b>: finish Day 2 (Ribbon Cutting, the post-lunch energizer, the Blueprint) and review the structure on 19 Oct.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Day 1 walkthrough</h4>
+          <ul>
+            <li><b>Opening.</b> Speed-connect lines with vulnerable prompts; why we’re here; the four phases; scratchpad, Blueprint and resource list; WhatsApp, parking lot and Navigating the Challenges; rules of engagement.</li>
+            <li><b>Visualisation</b> (Suzanne): one word, one obstacle, one sentence, then a 45-second pair share.</li>
+            <li><b>Chapter Chair role.</b> An inch deep and a mile wide. Paige noted the overlap with the Gold workshop’s role pillars; Delcie suggested governance as an extra strand, which is where commitments compliance could sit. Elizabeth: link the pre-work metrics to the legacy each chair wants to leave.</li>
+            <li><b>Community Standards.</b> Culture is set from the top; GRIT; safe haven; a Conduct Committee of five recommended; Ethicspoint, which only about 10% of the room knew about. Spouses, partners and management should know it exists too.</li>
+            <li><b>Conduct routes.</b> Paige: in MENA there’s no regional route, only chapter or Global. Delcie: some US regions have regional conduct committees of past chairs who give anonymised advice.</li>
+            <li><b>Conduct data.</b> Delcie has asked YPO for case numbers. Her figures: Global sends about 95% of cases back to chapters, and under 1% end in removal. Paige: few reports means under-reporting, not good behaviour (Brenda’s point), and not acting on what you see sets your chapter’s culture (Daniel Levin’s point).</li>
+            <li><b>Membership.</b> Waivers, the new criteria and qualifying roles (a year in, so recap), Grace, Strategic Membership Pathways (regions have now chosen theirs, so the slide needs updating), integration as a big decision, and Apeiron as an expectation at joining.</li>
+            <li><b>Building stickers</b> sparked conversations at lunch and made participants easy to spot at socials.</li>
+            <li><b>Game Plan.</b> The Bangkok cohort can still book one; after San Diego it’s likely early next year, or booked for their successor.</li>
+            <li><b>Framework.</b> The Chapter Manager role; officer slate deadlines; the budget allocation table exercise, then YPO’s ranges; bylaws vs P&amp;P (Paige: YPO splits these into operations and governance manuals).</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Day 2 walkthrough, to the end of Finishing</h4>
+          <ul>
+            <li><b>Opener.</b> “Stand up if…” built safety. Finishing means running what you’ve built.</li>
+            <li><b>Board meetings.</b> Best vs worst table exercise, E-CODE, and the non-performance ladder: expectations, awareness, reaffirm, resources, an out, action. A case study candidate.</li>
+            <li><b>Chapter Manager relationship.</b> The video plus tips. Also a case study candidate.</li>
+            <li><b>Chapter Commitments.</b> Set the tone first: not policing, and drafted by regional chairs through the CRC. Guests (Shirin and Jay) after the break, each commitment as what, when, who and where, and concerns parked for the challenge tables.</li>
+            <li><b>Global Board.</b> In Chicago the visit landed mid-Day 2; in Sydney it was the kick-off. Not ideal.</li>
+            <li><b>Then:</b> the building posters revisit, the Chapter Risk Assessment (a MidAmerica tool), D&amp;O and liability waivers, and a Connect dashboard demo with short tutorial videos in the after-read.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Repeat attendees</h4>
+          <ul>
+            <li>Training is valid for two years in the same role, so repeat attendees should be few.</li>
+            <li>Last year first-time officers had priority and second-years could attend virtually. It counts towards chapter health.</li>
+            <li>Nerissa can pull last year’s attendance once registration opens on 1 Nov. Fresh energizers cover anyone who comes back.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Owners still to agree</h4>
+          <ul>
+            <li>Carried from 5 Oct: pre-workshop survey · index &amp; follow-up PDF · case study selection · Chapter Commitments pre-read pack · Chapter Commitments guests</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="note">
       <summary>
         <div><h3>Mon 5 Oct 2026 · First planning call</h3><span class="sm">Alexandra (organiser), Delcie, Elizabeth, Nerissa, Paige · From the Zoom AI summary (shared by Alexandra) and Paige’s notes</span></div>
         <span class="tog"></span>
@@ -441,12 +742,12 @@ footer .small b{color:rgba(255,255,255,.92)}
           <h4>Actions</h4>
           <ul>
             <li><b>Delcie</b>: review the content PDF and decide which topics to prioritise, which move to post-reads, and where case studies are most needed.</li>
-            <li><b>Delcie</b>: walk through last year’s deck on 12 Oct and flag what works and what needs updating; promote Apeiron at GLC.</li>
+            <li><b>Delcie</b>: walk through last year’s deck on 12 Oct and flag what works and what needs updating; promote Apeiron at GLC. <span class="chip ok">Walkthrough done 12 Oct; Day 2 finishes 19 Oct</span></li>
             <li><b>Elizabeth</b>: review the content PDF for priority topics and areas to improve.</li>
             <li><b>Nerissa</b>: share the management to-do spreadsheet with the team for reference. <a class="chip ok" href="#tasks">Done: see the task list below</a></li>
             <li><b>Paige</b>: send the notes from this call and a high-level agenda for 12 Oct. <a class="chip ok" href="#calls">Done: in this hub</a></li>
             <li><b>Paige</b>: create a shared, non-Google space for the RACI, presentation links and meeting notes. <span class="chip ok">Done: this hub</span></li>
-            <li><b>Paige</b>: draft notes and guidance for the Chapter Commitments section so it lands with a positive, supportive tone.</li>
+            <li><b>Paige</b>: draft notes and guidance for the Chapter Commitments section so it lands with a positive, supportive tone. <a class="chip ok" href="#commitments">In the session outline</a></li>
             <li><b>Paige</b>: decline Alan Hepburn’s request to join the GLC session, as Delcie will cover the Apeiron content. <span class="chip ok">Done</span></li>
           </ul>
         </div>
@@ -465,7 +766,7 @@ footer .small b{color:rgba(255,255,255,.92)}
           </ul>
         </div>
         <div>
-          <h4>Owners to agree on 12 Oct</h4>
+          <h4>Owners to agree <span class="chip">Carried to 19 Oct</span></h4>
           <ul>
             <li>Pre-workshop survey</li>
             <li>Index document &amp; follow-up PDF</li>
@@ -479,7 +780,7 @@ footer .small b{color:rgba(255,255,255,.92)}
   </div>
 </section>
 
-<section class="band" id="tasks">
+<section class="band paper" id="tasks">
   <div class="wrap">
     <div class="eyebrow">WDTM RACI 2027</div>
     <h2 class="sec-h">Management task list</h2>
@@ -527,7 +828,7 @@ footer .small b{color:rgba(255,255,255,.92)}
 <footer>
   <div class="wrap">
     <span class="lockup"><img src="data:image/png;base64,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" alt="YPO mark"><span class="word">YPO</span><span class="region">Chapter Chair Y<br>Workshop</span></span>
-    <p class="small"><b>Workshop Delivery Team · GLC 2027.</b> Calls from the “Y CC Workshop – Team Meeting” calendar series. Links from the 1 Oct agenda and Nerissa’s shares. Tasks from WDTM RACI 2027. Last updated Mon 5 Oct 2026.</p>
+    <p class="small"><b>Workshop Delivery Team · GLC 2027.</b> Calls from the “Y CC Workshop – Team Meeting” calendar series. Links from the 1 Oct agenda and Nerissa’s shares. Tasks from WDTM RACI 2027. Last updated Mon 12 Oct 2026.</p>
   </div>
 </footer>
 
@@ -601,6 +902,18 @@ var AGENDAS = {
       "Owners and next steps"
     ],
     owners: ["Pre-workshop survey","Index doc & follow-up PDF","Case study selection","Chapter Commitments pre-read pack","Chapter Commitments guests"]
+  },
+  "2026-10-19": {
+    title: "Outline review",
+    items: [
+      "Actions round-up",
+      "Finish last year’s Day 2 with Delcie: Ribbon Cutting, the post-lunch energizer, the Blueprint and close",
+      "Proposed structure walk-through: phases, timings, activities (see Session outline)",
+      "Gaps, repeats and new ideas, including the Chapter Commitments map",
+      "Open questions and owners",
+      "Next steps: start the slide-by-slide build"
+    ],
+    owners: ["Pre-workshop survey","Index doc & follow-up PDF","Case study selection","Chapter Commitments pre-read pack","Chapter Commitments guests","Conduct data from YPO"]
   }
 };
 
@@ -696,7 +1009,7 @@ window.__TASKS = TASKS;
 /* ---- shared tick state ---- */
 var ticks = {};          // id -> {done, by, at}
 var names = {};          // user id -> display name
-var canWrite = false, dbRef = null, userNs = null, uid = null, localMode = false;
+var canWrite = false, dbRef = null, userNs = null, uid = null;
 var filt = {status: store("ccwy.fs") || "open", role: store("ccwy.fr") || "all"};
 if(["open","overdue","now","upcoming","done","all"].indexOf(filt.status)<0) filt.status="open";
 if(["all","MP","Champion","LDT","VP","WDT/OE"].indexOf(filt.role)<0) filt.role="all";
@@ -735,7 +1048,7 @@ function nextCall(){ var now=nowMs(); for(var i=0;i<CALLS.length;i++){ if(CALLS[
 
 /* ---- render: timeline ---- */
 var MS = [
-  {date:[2026,9,12], at:Date.UTC(2026,9,12,14), short:"Next call", title:"Next call: running through content", desc:"Delcie walks through last year’s deck and we agree where new content goes.", pos:"up"},
+  {date:[2026,9,19], at:Date.UTC(2026,9,19,14), short:"Outline review", title:"Next call: outline review", desc:"Finish last year’s Day 2, then review the draft session outline for gaps, repeats and new ideas.", pos:"up"},
   {date:[2026,10,1], at:Date.UTC(2026,10,1), short:"Registration opens", title:"GLC registration opens", desc:"Sunday 1 November. Registration data feeds our participant briefing from January.", pos:"down"},
   {date:[2026,11,31], at:Date.UTC(2026,11,31,23), short:"Content complete", title:"Content complete", desc:"Deck, guides and resources final by the end of December, before the Christmas break.", pos:"up"},
   {date:[2027,0,4], at:Date.UTC(2027,0,4,15), short:"Rehearsals", title:"Rehearsals: January to GLC", desc:"Run-throughs on our Monday calls from 4 January until we fly to Bangkok.", pos:"down", band:[Date.UTC(2027,0,4), Date.UTC(2027,2,14)]},
@@ -931,10 +1244,6 @@ async function resolveNames(){
   applyTasks();
 }
 async function toggle(t, done, cb){
-  if(localMode){
-    if(done) ticks[t.id] = {done:true, by:null, at:new Date().toISOString()}; else delete ticks[t.id];
-    store("ccwy.ticks", JSON.stringify(ticks)); applyTasks(); return;
-  }
   if(!dbRef || !canWrite){ cb.checked = !done; return; }
   var e = taskEls[t.id], prev = ticks[t.id];
   e.busy = true;
@@ -953,12 +1262,7 @@ async function toggle(t, done, cb){
 
 async function connect(){
   var c = window.claude;
-  if(!c || typeof c.use!=="function"){
-    localMode = true; canWrite = true;
-    try{ var saved = store("ccwy.ticks"); ticks = saved ? JSON.parse(saved) : {}; }catch(e){ ticks = {}; }
-    setSync("ro","Ticks are saved in this browser only. Open the hub in Claude to share ticks with the team.");
-    applyTasks(); return;
-  }
+  if(!c || typeof c.use!=="function"){ setSync("ro","Shared ticks load when this page is opened in Claude, signed in."); return; }
   var res = await Promise.all([c.use("db"), c.use("user")]);
   dbRef = res[0]; userNs = res[1];
   if(!dbRef){ setSync("ro","Shared ticks aren’t available in this view. Open the page signed in to Claude to tick tasks."); return; }
@@ -984,6 +1288,4 @@ setInterval(function(){ renderCountdown(); }, 60000);
 connect().catch(function(){ setSync("ro","Shared ticks couldn’t load. Reload the page to try again."); });
 })();
 </script>
-
-</body>
-</html>
+</body></html>
