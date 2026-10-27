@@ -165,6 +165,7 @@ a.chip:hover{text-decoration:underline}
 
 /* resources */
 .rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:2.2rem 2.6rem;margin-top:2rem}
+.rstack{display:flex;flex-direction:column;gap:2.2rem;min-width:0}
 .rgroup h3{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
 .rlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .rlist li{border-bottom:1px solid var(--line)}
@@ -328,11 +329,11 @@ footer .small b{color:rgba(255,255,255,.92)}
   <div class="wrap">
     <span class="lockup"><img src="data:image/png;base64,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" alt="YPO mark"><span class="word">YPO</span><span class="region">Chapter Chair Y<br>Workshop</span></span>
     <div class="links">
+      <a href="#road">Road to GLC</a>
       <a href="#calls">Calls</a>
       <a href="#materials">Materials</a>
       <a href="#notes">Notes</a>
       <a href="#outline">Outline</a>
-      <a href="#road">Timeline</a>
       <a href="#tasks">Tasks</a>
     </div>
   </div>
@@ -373,6 +374,17 @@ footer .small b{color:rgba(255,255,255,.92)}
 </header>
 
 <main>
+<section class="band" id="road">
+  <div class="wrap">
+    <div class="eyebrow">Timeline</div>
+    <h2 class="sec-h">Road to GLC</h2>
+    <p class="lede">Content is final before the Christmas break so January to GLC is for rehearsal. The gold line shows how far along we are.</p>
+    <div class="track" id="track" aria-hidden="true"></div>
+    <div class="months" id="months" aria-hidden="true"></div>
+    <ol class="mlist" id="mlist"></ol>
+  </div>
+</section>
+
 <section class="band paper" id="calls">
   <div class="wrap">
     <div class="head-row">
@@ -403,30 +415,39 @@ footer .small b{color:rgba(255,255,255,.92)}
       </ul>
     </div>
     <div class="rgrid">
-      <div class="rgroup">
-        <h3>Decks &amp; cue cards · Canva</h3>
+      <div class="rstack">
+        <div class="rgroup">
+        <h3>Decks · Canva</h3>
         <ul class="rlist">
           <li><a href="https://canva.link/8zzewcucwl76cus" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Day 1 deck</span><span class="rd">Foundation and Framework, with presenter notes on every slide</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://canva.link/ox7bebzzi5ib0dy" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Day 2 deck</span><span class="rd">Finishing and Ribbon Cutting, with presenter notes on every slide</span></span><span class="arw">↗</span></a></li>
-          <li><a href="https://canva.link/4qmaduqwyuhcceb" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Cue cards</span><span class="rd">A4, printed for the Champions: key points, commitments, activities, your examples, notes and timings, colour-coded by presenter</span></span><span class="arw">↗</span></a></li>
-          <li><a href="https://canva.link/keavzwexmsrg74s" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Chapter Commitments overview</span><span class="rd">All 14: what, by when, who owns it, where it’s recorded and where the session covers it</span></span><span class="arw">↗</span></a></li>
         </ul>
+        </div>
+        <div class="rgroup">
+        <h3>Still to come</h3>
+        <ul class="rlist">
+          <li><div class="soon"><span class="ft">Video</span><span><span class="rt">Theme video</span><span class="rd">A host-city building story to open Day 1. Paige is making it in Canva.</span></span><span class="chip">In progress</span></div></li>
+          <li><div class="soon"><span class="ft">Link</span><span><span class="rt">Chapter Commitments status</span><span class="rd">Every chapter’s status for the pre-read, sent with the 3-2-1 emails</span></span><span class="chip">Close to GLC</span></div></li>
+          <li><div class="soon"><span class="ft">Print</span><span><span class="rt">MarCom workbook</span><span class="rd">Nerissa’s template; the worksheets go into it once the draft arrives</span></span><span class="chip">Awaiting draft</span></div></li>
+        </ul>
+        </div>
       </div>
-      <div class="rgroup">
+        <div class="rgroup">
         <h3>Printables · Canva</h3>
         <ul class="rlist">
+          <li><a href="https://canva.link/4qmaduqwyuhcceb" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Cue cards</span><span class="rd">A4, printed for the Champions: key points, commitments, activities, your examples, notes and timings, colour-coded by presenter</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://canva.link/keavzwexmsrg74s" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Chapter Commitments overview</span><span class="rd">All 14: what, by when, who owns it, where it’s recorded and where the session covers it</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://canva.link/xzmwauuz3m4r9a5" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Tent card (draft)</span><span class="rd">Table QR codes: Chapter Chair toolkit, WhatsApp group, Navigating the Challenges and the parking lot</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://canva.link/35zbq1oz1yzjcl0" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Table agenda</span><span class="rd">The running order for each table. Being cut back to session blocks and breaks.</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://canva.link/sf5w5w29rhdr8c0" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Worksheets 1</span><span class="rd">Workbook activities and table printouts, numbered to the slides (F1, F2…)</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://canva.link/ozssgxs5r65yajw" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Worksheets 2</span><span class="rd">Workbook activities and table printouts, continued</span></span><span class="arw">↗</span></a></li>
-          <li><a href="https://canva.link/kg6r2xniu3vl814" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Worksheets 4</span><span class="rd">Workbook activities and table printouts, continued</span></span><span class="arw">↗</span></a></li>
+          <li><a href="https://canva.link/kg6r2xniu3vl814" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Worksheets 3</span><span class="rd">Workbook activities and table printouts, continued</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://canva.link/pfwinuhgwgbx2az" target="_blank" rel="noopener"><span class="ft cv">Canva</span><span><span class="rt">Stickers</span><span class="rd">Building State stickers for the Day 1 activity</span></span><span class="arw">↗</span></a></li>
         </ul>
-      </div>
-      <div class="rgroup">
+        </div>
+        <div class="rgroup">
         <h3>Planning</h3>
         <ul class="rlist">
-          <li><div class="soon"><span class="ft">XLSX</span><span><span class="rt">Master planning sheet</span><span class="rd">Every segment with its activity type, timings, slides and presenter. Shown on 26 Oct.</span></span><span class="chip">Link to add</span></div></li>
           <li><a href="https://youngpresidentsorg.sharepoint.com/:x:/r/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/WDTM%20RACI%202027.xlsx?d=w2e1b11663cf24f96a268c404bb2e77f3&amp;csf=1&amp;web=1&amp;e=skhih2" target="_blank" rel="noopener"><span class="ft xls">XLSX</span><span><span class="rt">WDTM RACI 2027</span><span class="rd">Nerissa’s management checklist, Aug 2026 to Jul 2027. Tracked in the task list below.</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://youngpresidentsorg.sharepoint.com/:x:/r/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/WDTM%20Event%20WAAG%2030%20September%202026.xlsx?d=w9058db65d10b4cfd8f05982607ed5dbd&amp;csf=1&amp;web=1&amp;e=NGcl7Z" target="_blank" rel="noopener"><span class="ft xls">XLSX</span><span><span class="rt">GLC week at a glance (30 Sep)</span><span class="rd">Corrected Bangkok timings. Plan for 8 hours of workshop time.</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/WAAGBangkok2027glc%20WDTM%20DRAFT%202.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">Bangkok week at a glance, draft 2</span><span class="rd">14–16 Mar 2027 schedule</span></span><span class="arw">↗</span></a></li>
@@ -434,17 +455,8 @@ footer .small b{color:rgba(255,255,255,.92)}
           <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/CCY%20Excel.xlsx?web=1" target="_blank" rel="noopener"><span class="ft xls">XLSX</span><span><span class="rt">CCY workshop planning sheet</span><span class="rd">The WDTM Excel template for this workshop</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/F26-27%20CCW%20Y%20Outline%20in%20person%20workshop.docx?web=1" target="_blank" rel="noopener"><span class="ft doc">DOCX</span><span><span class="rt">FY26-27 CCW Y outline, in-person workshop</span><span class="rd">Officer Education’s content outline for this workshop</span></span><span class="arw">↗</span></a></li>
         </ul>
-      </div>
-      <div class="rgroup">
-        <h3>Still to come</h3>
-        <ul class="rlist">
-          <li><div class="soon"><span class="ft">Video</span><span><span class="rt">Theme video</span><span class="rd">A host-city building story to open Day 1. Paige is making it in Canva.</span></span><span class="chip">In progress</span></div></li>
-          <li><div class="soon"><span class="ft">Link</span><span><span class="rt">Chapter Commitments status</span><span class="rd">Every chapter’s status for the pre-read, sent with the 3-2-1 emails</span></span><span class="chip">Close to GLC</span></div></li>
-          <li><div class="soon"><span class="ft">Print</span><span><span class="rt">MarCom workbook</span><span class="rd">Nerissa’s template; the worksheets go into it once the draft arrives</span></span><span class="chip">Awaiting draft</span></div></li>
-          <li><div class="soon"><span class="ft">Guide</span><span><span class="rt">Leader’s Guide</span><span class="rd">Draft Dec 2026 to Jan 2027</span></span><span class="chip">Coming soon</span></div></li>
-        </ul>
-      </div>
-      <div class="rgroup">
+        </div>
+        <div class="rgroup">
         <h3>Shared spaces</h3>
         <ul class="rlist">
           <li><a href="https://youngpresidentsorg.sharepoint.com/:f:/r/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y?d=wa870786974da49d7a883d745466471e1&amp;csf=1&amp;web=1&amp;e=ICQ3r4" target="_blank" rel="noopener"><span class="ft dir">Folder</span><span><span class="rt">CC Y shared folder</span><span class="rd">Our team folder, including the CCW Y data Pietro presented at WDTM</span></span><span class="arw">↗</span></a></li>
@@ -452,8 +464,8 @@ footer .small b{color:rgba(255,255,255,.92)}
           <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FLearningDepartment%2FShared%20Documents%2FOfficer%20Education%2FOfficer%20Education%20Materials%2FFY26%2D27%20%2D%20CURRENT%2FWorkshop%20Materials%2FCC%20Y%2FRoadmaps" target="_blank" rel="noopener"><span class="ft dir">Folder</span><span><span class="rt">Chapter Chair roadmaps</span><span class="rd">CC roadmap 1 (info page), 2 (landscape) and 3 (portrait), saved until a central home is ready</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://ypo.zoom.us/j/95910321865?jst=1" target="_blank" rel="noopener"><span class="ft">Zoom</span><span><span class="rt">Weekly call room</span><span class="rd">Meeting ID 959 1032 1865 · organised by Alexandra</span></span><span class="arw">↗</span></a></li>
         </ul>
-      </div>
-      <div class="rgroup">
+        </div>
+        <div class="rgroup">
         <h3>Background &amp; last year</h3>
         <ul class="rlist">
           <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FLearningDepartment%2FShared%20Documents%2FOfficer%20Education%2FOfficer%20Education%20Materials%2FFY25%2D26%2FWorkshop%20Delivery%20Team%20materials%2FWorkshops%2FChapter%20Chair%2DY%2FChicago%20materials" target="_blank" rel="noopener"><span class="ft dir">Folder</span><span><span class="rt">Last year’s CCW Y decks (Chicago)</span><span class="rd">Day One and Day Two decks with speaker notes, plus the Champion Guides</span></span><span class="arw">↗</span></a></li>
@@ -464,7 +476,7 @@ footer .small b{color:rgba(255,255,255,.92)}
           <li><a href="https://youngpresidentsorg.sharepoint.com/sites/LearningDepartment/Shared%20Documents/Officer%20Education/Officer%20Education%20Materials/FY26-27%20-%20CURRENT/Workshop%20Materials/CC%20Y/_WDTM%20Montreal%20Slides%20-%20as%20of%2016%20Sep.pdf" target="_blank" rel="noopener"><span class="ft pdf">PDF</span><span><span class="rt">WDTM Montreal slides (16 Sep)</span><span class="rd">Large file, about 109 MB</span></span><span class="arw">↗</span></a></li>
           <li><a href="https://www.ypoconnect.org/#/memberProfile?memberId=88fad1c4-7de3-de11-8d75-005056923298" target="_blank" rel="noopener"><span class="ft">Profile</span><span><span class="rt">Salim Dewji</span><span class="rd">New Chapter Champion Workshop. Has offered to support incoming CCs if needed.</span></span><span class="arw">↗</span></a></li>
         </ul>
-      </div>
+        </div>
     </div>
   </div>
 </section>
@@ -484,7 +496,7 @@ footer .small b{color:rgba(255,255,255,.92)}
         <div class="full"><p class="quote">Everything is drafted in Canva. The Champions review it all this week, we go through their feedback slide by slide on 2 Nov, then on to rehearsals.</p></div>
         <div class="full">
           <h4>Recap</h4>
-          <p class="recap">Paige walked the team through every file: the master planning sheet, both decks, the cue cards and all the printables (links under <a href="#materials">Materials</a>). The plan is 48% activity and 46% delivery by time. Elizabeth presents 40% and Delcie 46%, and the rest is assigned once the Champions have seen the activities. The Champions asked for presenters to switch more often, the theme video to open Day 1 and the reflection to move up. They also want a simpler table agenda and no overnight homework. Nerissa says we’re well ahead of schedule.</p>
+          <p class="recap">Paige walked the team through every file: both decks, the cue cards and all the printables (links under <a href="#materials">Materials</a>). The plan is 48% activity and 46% delivery by time. Elizabeth presents 40% and Delcie 46%, and the rest is assigned once the Champions have seen the activities. The Champions asked for presenters to switch more often, the theme video to open Day 1 and the reflection to move up. They also want a simpler table agenda and no overnight homework. Nerissa says we’re well ahead of schedule.</p>
         </div>
         <div>
           <h4>Agreed</h4>
@@ -507,7 +519,7 @@ footer .small b{color:rgba(255,255,255,.92)}
           <h4>Actions</h4>
           <ul>
             <li><b>Delcie &amp; Elizabeth</b>: review every file before 2 Nov, comment in Canva and note personal examples for the cue cards.</li>
-            <li><b>Delcie, then Elizabeth</b>: tag the sections in the master planning sheet where the presenter should switch, including the share not yet assigned.</li>
+            <li><b>Delcie, then Elizabeth</b>: comment on the presenter’s name in Canva wherever the presenter should switch, including the sections not yet assigned.</li>
             <li><b>Paige</b>: send the editable Canva files one by one, as YPO restricts folder sharing. <a class="chip ok" href="#materials">Links in Materials</a></li>
             <li><b>Paige</b>: make the theme video in Canva.</li>
             <li><b>Paige</b>: deck edits: theme video at the very top; slides 10–14 moved up and renumbered; at the Day 1 close, drop the workbook to-dos (slide 49), add the Mentimeter parking lot after 49 and the word cloud after 50, add logistics and relabel it “Parking lot today, Navigating the Challenges tomorrow”; fix the items flagged in red.</li>
@@ -831,7 +843,7 @@ footer .small b{color:rgba(255,255,255,.92)}
   <div class="wrap">
     <div class="eyebrow">As walked through on 26 Oct</div>
     <h2 class="sec-h">Session outline: GLC Bangkok</h2>
-    <p class="lede">Monday 15 and Tuesday 16 March 2027, on the construction theme. This page shows the shape of the two days. The <a href="#materials">Canva decks and cue cards</a> and the master planning sheet hold the slide-by-slide detail, timings and who presents what.</p>
+    <p class="lede">Monday 15 and Tuesday 16 March 2027, on the construction theme. This page shows the shape of the two days. The <a href="#materials">Canva decks and cue cards</a> hold the slide-by-slide detail, timings and who presents what.</p>
 
     <ol class="phase-strip">
       <li><span class="d tnum">Day 1 · 10:15–12:30</span><h3>Foundation</h3><p class="ps">Vision &amp; Groundwork</p>
@@ -899,18 +911,7 @@ footer .small b{color:rgba(255,255,255,.92)}
   </div>
 </section>
 
-<section class="band paper" id="road">
-  <div class="wrap">
-    <div class="eyebrow">Timeline</div>
-    <h2 class="sec-h">Road to GLC</h2>
-    <p class="lede">Content is final before the Christmas break so January to GLC is for rehearsal. The gold line shows how far along we are.</p>
-    <div class="track" id="track" aria-hidden="true"></div>
-    <div class="months" id="months" aria-hidden="true"></div>
-    <ol class="mlist" id="mlist"></ol>
-  </div>
-</section>
-
-<section class="band" id="tasks">
+<section class="band paper" id="tasks">
   <div class="wrap">
     <div class="eyebrow">WDTM RACI 2027</div>
     <h2 class="sec-h">Management task list</h2>
@@ -1067,7 +1068,7 @@ var AGENDAS = {
       "Changes since 26 Oct: theme video at the top, the reflection moved up, the Day 1 close and the simpler table agenda",
       "Day 1 deck, slide by slide, with the Champions’ comments",
       "Day 2 deck, slide by slide, with the Champions’ comments",
-      "Presenter handoffs: Delcie’s and Elizabeth’s tags in the master planning sheet",
+      "Presenter handoffs: Delcie’s and Elizabeth’s comments in Canva",
       "Design: is the construction look right, or should it go further?",
       "Guests: the Global Board slot, and Jay or a backup",
       "Lego set options, if Alexandra is back",
